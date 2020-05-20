@@ -1,0 +1,7 @@
+import Routine from '@modules/training/infra/typeorm/entities/Routine';
+import ICreateRoutineDTO from '@modules/training/dtos/ICreateRoutineDTO';
+
+export default interface IRoutinesRepository {
+  create(routineData: ICreateRoutineDTO): Promise<Routine>;
+  save(training: Routine): Promise<Routine>;
+}

@@ -36,9 +36,11 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             name: 'password',
             type: 'varchar',
           },
+          { name: 'avatar', type: 'varchar', isNullable: true },
           {
             name: 'sexo',
-            type: 'bool',
+            type: 'int',
+            default: 0,
           },
           {
             name: 'age',
@@ -104,24 +106,21 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             default: 'now()',
           },
         ],
-      }),
-    );
-
-    await queryRunner.createForeignKey(
-      'athletes',
-      new TableForeignKey({
-        name: 'TrainerFK',
-        columnNames: ['trainer_id'],
-        referencedColumnNames: ['id'],
-        referencedTableName: 'users',
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE',
+        foreignKeys: [
+          {
+            name: 'AthletesTrainer',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['trainer_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('trainers', 'TrainerFK');
     await queryRunner.dropTable('athletes');
   }
 }

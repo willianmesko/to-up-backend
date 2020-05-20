@@ -1,15 +1,10 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateUsers1586877055453 implements MigrationInterface {
+export default class CreateRoutine1590014778195 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'routines',
         columns: [
           {
             name: 'id',
@@ -19,31 +14,17 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
             default: 'uuid_generate_v4()', // generate uuid automaticaly
           },
           {
-            name: 'name',
+            name: 'title',
             type: 'varchar',
           },
           {
-            name: 'surname',
+            name: 'description',
             type: 'varchar',
           },
+
           {
-            name: 'email',
-            type: 'varchar',
-            isUnique: true,
-          },
-          {
-            name: 'password',
-            type: 'varchar',
-          },
-          {
-            name: 'is_trainer',
-            type: 'bool',
-            default: true,
-          },
-          {
-            name: 'sexo',
-            type: 'int',
-            default: 0,
+            name: 'training_id',
+            type: 'uuid',
           },
 
           {
@@ -57,11 +38,21 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
             default: 'now()',
           },
         ],
+        foreignKeys: [
+          {
+            name: 'Training',
+            referencedTableName: 'training',
+            referencedColumnNames: ['id'],
+            columnNames: ['training_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('routines');
   }
 }

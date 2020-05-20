@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 
@@ -22,7 +21,13 @@ class User {
   name: string;
 
   @Column()
+  surname: string;
+
+  @Column()
   email: string;
+
+  @Column()
+  sexo: number;
 
   @Column()
   @Exclude()

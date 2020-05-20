@@ -24,6 +24,14 @@ class Athletes implements IAthletesRepository {
     return this.ormRepository.save(athlete);
   }
 
+  public async findByEmail(email: string): Promise<Athlete | undefined> {
+    const athlete = await this.ormRepository.findOne({
+      where: { email },
+    });
+
+    return athlete;
+  }
+
   public async findAll(id: string): Promise<Athlete[]> {
     return this.ormRepository.find({
       where: {

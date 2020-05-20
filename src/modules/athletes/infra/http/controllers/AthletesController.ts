@@ -8,11 +8,9 @@ import ListAthletesService from '@modules/athletes/services/ListAthletesService'
 export default class AthletesController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const trainer_id = request.user.id;
       const {
         name,
         email,
-        password,
         sexo,
         age,
         body_mass,
@@ -34,8 +32,8 @@ export default class AthletesController {
       const athlete = await createAthlete.execute({
         name,
         email,
-        password,
-        trainer_id,
+        trainer_id: request.user.id,
+
         sexo,
         age,
         body_mass,

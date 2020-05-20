@@ -1,15 +1,10 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateUsers1586877055453 implements MigrationInterface {
+export default class CreateTraining1590001273923 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'training',
         columns: [
           {
             name: 'id',
@@ -19,31 +14,26 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
             default: 'uuid_generate_v4()', // generate uuid automaticaly
           },
           {
-            name: 'name',
+            name: 'title',
             type: 'varchar',
           },
           {
-            name: 'surname',
+            name: 'description',
             type: 'varchar',
           },
           {
-            name: 'email',
+            name: 'cover',
             type: 'varchar',
-            isUnique: true,
+            isNullable: true,
           },
           {
-            name: 'password',
-            type: 'varchar',
-          },
-          {
-            name: 'is_trainer',
-            type: 'bool',
-            default: true,
-          },
-          {
-            name: 'sexo',
+            name: 'difficulty',
             type: 'int',
             default: 0,
+          },
+          {
+            name: 'trainer_id',
+            type: 'uuid',
           },
 
           {
@@ -57,11 +47,21 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
             default: 'now()',
           },
         ],
+        foreignKeys: [
+          {
+            name: 'TrainingTrainer',
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            columnNames: ['trainer_id'],
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('training');
   }
 }

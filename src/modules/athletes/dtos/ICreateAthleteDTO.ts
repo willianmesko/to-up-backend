@@ -2,6 +2,7 @@ export default interface ICreateAthleteDTO {
   name: string;
   email: string;
   password: string;
+
   trainer_id: string;
   sexo: boolean;
   age: number;

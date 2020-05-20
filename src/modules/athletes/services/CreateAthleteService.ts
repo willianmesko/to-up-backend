@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe';
-
-// import AppError from '@shared/errors/AppError';
+import crypto from 'crypto';
+import AppError from '@shared/errors/AppError';
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
-// import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-// import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 // import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
@@ -11,8 +11,8 @@ import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 interface IRequest {
   name: string;
   email: string;
-  password: string;
   trainer_id: string;
+
   sexo: boolean;
   age: number;
   body_mass: number;
@@ -34,12 +34,17 @@ class CreateAthleteService {
   constructor(
     @inject('AthletesRepository')
     private athletesRepository: IAthletesRepository,
+
+    @inject('StorageProvider')
+    private storageProvider: IStorageProvider,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
     name,
     email,
-    password,
     trainer_id,
     sexo,
     age,
@@ -56,10 +61,21 @@ class CreateAthleteService {
     personal_profile,
     imc,
   }: IRequest): Promise<Athlete> {
+    const checkAthleteExists = await this.athletesRepository.findByEmail(email);
+
+    if (checkAthleteExists) {
+      throw new AppError('Aluno já cadastrado');
+    }
+
+    const password = crypto.randomBytes(6).toString('HEX');
+
+    const hashedPassword = await this.hashProvider.generateHash(password);
+
     const athlete = this.athletesRepository.create({
       name,
       email,
-      password,
+      password: hashedPassword,
+
       trainer_id,
       sexo,
       age,
@@ -76,8 +92,6 @@ class CreateAthleteService {
       personal_profile,
       imc,
     });
-
-    console.log(name);
 
     return athlete;
   }
