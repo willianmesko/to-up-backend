@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  OneToMany,
   JoinColumn,
 } from 'typeorm';
 
 import Training from '@modules/training/infra/typeorm/entities/Training';
+import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExercice';
 
 @Entity('routines')
 class Routine {
@@ -23,6 +25,24 @@ class Routine {
 
   @Column()
   training_id: string;
+
+  @Column('int')
+  volume: number;
+
+  @Column('float')
+  duration: number;
+
+  @Column('float')
+  caloric_expenditure: number;
+
+  @Column('float')
+  intensity: number;
+
+  @OneToMany(
+    type => RoutineExercice,
+    routineExercice => routineExercice.routine,
+  )
+  routineExercice!: RoutineExercice[];
 
   @ManyToOne(type => Training, training => training.routines)
   @JoinColumn({ name: 'training_id', referencedColumnName: 'id' })

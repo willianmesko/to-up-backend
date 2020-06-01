@@ -15,13 +15,20 @@ class RoutinesRepository implements IRoutinesRepository {
   public async create(routineData: ICreateRoutineDTO): Promise<Routine> {
     const routine = this.ormRepository.create(routineData);
 
-    await this.ormRepository.save(routineData);
-
-    return routine;
+    return this.ormRepository.save(routine);
   }
 
   public async save(routine: Routine): Promise<Routine> {
     return this.ormRepository.save(routine);
+  }
+
+  public async findAll(training_id: string): Promise<Routine[]> {
+    const routines = await this.ormRepository.find({
+      where: { training_id },
+      relations: ['routineExercice'],
+    });
+
+    return routines;
   }
 }
 

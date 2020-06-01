@@ -18,7 +18,7 @@ athletesRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
-      sexo: Joi.boolean().required(),
+      sexo: Joi.number().required(),
       age: Joi.number().required(),
       body_mass: Joi.number().required(),
       stature: Joi.number().required(),
@@ -26,12 +26,6 @@ athletesRouter.post(
       training_level: Joi.number().required(),
       physical_activity: Joi.number().required(),
       objective: Joi.number().required(),
-      basal_metabolic_rate: Joi.number().required(),
-      spent_daily_train: Joi.number().required(),
-      mass_muscle: Joi.number().required(),
-      mass_fat: Joi.number().required(),
-      imc: Joi.number().required(),
-      personal_profile: Joi.number().required(),
     },
   }),
 

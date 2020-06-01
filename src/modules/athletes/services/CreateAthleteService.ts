@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import crypto from 'crypto';
 import AppError from '@shared/errors/AppError';
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
+
 import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 // import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
@@ -13,7 +14,7 @@ interface IRequest {
   email: string;
   trainer_id: string;
 
-  sexo: boolean;
+  sexo: number;
   age: number;
   body_mass: number;
   stature: number;
@@ -21,12 +22,6 @@ interface IRequest {
   training_level: number;
   physical_activity: number;
   objective: number;
-  basal_metabolic_rate: number;
-  spent_daily_train: number;
-  mass_muscle: number;
-  mass_fat: number;
-  personal_profile: number;
-  imc: number;
 }
 
 @injectable()
@@ -46,6 +41,7 @@ class CreateAthleteService {
     name,
     email,
     trainer_id,
+
     sexo,
     age,
     body_mass,
@@ -54,12 +50,6 @@ class CreateAthleteService {
     training_level,
     physical_activity,
     objective,
-    basal_metabolic_rate,
-    spent_daily_train,
-    mass_muscle,
-    mass_fat,
-    personal_profile,
-    imc,
   }: IRequest): Promise<Athlete> {
     const checkAthleteExists = await this.athletesRepository.findByEmail(email);
 
@@ -68,6 +58,23 @@ class CreateAthleteService {
     }
 
     const password = crypto.randomBytes(6).toString('HEX');
+
+    function calculeBasalMetabolicRate(): number | undefined {
+      // 0 = MASCULINO
+      // 1 = FEMININO
+      let result;
+      if (sexo === 0) {
+        result = 9.99 * body_mass + 6.25 * stature - 4.92 * age + 5;
+      }
+      if (sexo === 1) {
+        result = 9.99 * body_mass + 6.25 * stature - 4.92 * age - 161;
+      }
+      return result;
+    }
+
+    function calculeImc(): number | undefined {
+      return body_mass / (((stature / 100) * stature) / 100);
+    }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
 
@@ -85,12 +92,9 @@ class CreateAthleteService {
       training_level,
       physical_activity,
       objective,
-      basal_metabolic_rate,
-      spent_daily_train,
-      mass_muscle,
-      mass_fat,
-      personal_profile,
-      imc,
+      basal_metabolic_rate: calculeBasalMetabolicRate(),
+
+      imc: calculeImc(),
     });
 
     return athlete;

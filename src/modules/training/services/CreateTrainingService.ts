@@ -1,6 +1,5 @@
 import { inject, injectable } from 'tsyringe';
 
-import AppError from '@shared/errors/AppError';
 import ITrainingRepository from '@modules/training/repositories/ITrainingRepository';
 
 import Training from '@modules/training/infra/typeorm/entities/Training';
@@ -8,6 +7,8 @@ import Training from '@modules/training/infra/typeorm/entities/Training';
 interface IRequest {
   title: string;
   description: string;
+  difficulty: number;
+  objective: number;
   trainer_id: string;
 }
 
@@ -22,9 +23,13 @@ class CreateTrainingService {
     title,
     description,
     trainer_id,
+    difficulty,
+    objective,
   }: IRequest): Promise<Training> {
-    const training = this.trainingRepository.create({
+    const training = await this.trainingRepository.create({
       title,
+      difficulty,
+      objective,
       description,
       trainer_id,
     });

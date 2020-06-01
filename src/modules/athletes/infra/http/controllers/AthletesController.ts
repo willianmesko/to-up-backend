@@ -13,18 +13,13 @@ export default class AthletesController {
         email,
         sexo,
         age,
+
         body_mass,
         stature,
         aerobic_profile,
         training_level,
         physical_activity,
         objective,
-        basal_metabolic_rate,
-        spent_daily_train,
-        mass_muscle,
-        mass_fat,
-        personal_profile,
-        imc,
       } = request.body;
 
       const createAthlete = container.resolve(CreateAthleteService);
@@ -33,21 +28,15 @@ export default class AthletesController {
         name,
         email,
         trainer_id: request.user.id,
-
         sexo,
         age,
+
         body_mass,
         stature,
         aerobic_profile,
         training_level,
         physical_activity,
         objective,
-        basal_metabolic_rate,
-        spent_daily_train,
-        mass_muscle,
-        mass_fat,
-        personal_profile,
-        imc,
       });
 
       return response.json(classToClass(athlete));

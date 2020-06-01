@@ -1,9 +1,4 @@
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class CreateAthletes1589911016879 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -46,6 +41,7 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             name: 'age',
             type: 'int',
           },
+
           {
             name: 'body_mass',
             type: 'float',
@@ -77,19 +73,23 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
           {
             name: 'spent_daily_train',
             type: 'float',
+            isNullable: true,
           },
           {
             name: 'mass_muscle',
             type: 'float',
+            isNullable: true,
           },
           {
             name: 'mass_fat',
             type: 'float',
+            isNullable: true,
           },
 
           {
             name: 'personal_profile',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'imc',

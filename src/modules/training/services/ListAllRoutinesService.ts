@@ -6,33 +6,23 @@ import IRoutinesRepository from '@modules/training/repositories/IRoutinesReposit
 import Routine from '@modules/training/infra/typeorm/entities/Routine';
 
 interface IRequest {
-  title: string;
-  description: string;
   training_id: string;
 }
 
 @injectable()
-class CreateRoutineService {
+class ListAllRoutinesService {
   constructor(
     @inject('RoutinesRepository')
     private routinesRepository: IRoutinesRepository,
   ) {}
 
   public async execute({
-    title,
-    description,
     training_id,
-  }: IRequest): Promise<Routine> {
-    const routine = await this.routinesRepository.create({
-      title,
-      description,
-      training_id,
-    });
+  }: IRequest): Promise<Routine[] | undefined> {
+    const routines = await this.routinesRepository.findAll(training_id);
 
-    console.log(routine);
-
-    return routine;
+    return routines;
   }
 }
 
-export default CreateRoutineService;
+export default ListAllRoutinesService;

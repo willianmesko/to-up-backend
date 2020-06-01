@@ -11,6 +11,7 @@ import uploadConfig from '@config/upload';
 import { Exclude, Expose } from 'class-transformer';
 
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
+import Training from '@modules/training/infra/typeorm/entities/Training';
 
 @Entity('users')
 class User {
@@ -35,6 +36,9 @@ class User {
 
   @OneToMany(type => Athlete, athlete => athlete.trainer)
   athletes: Athlete[];
+
+  @OneToMany(type => Training, training => training.trainer)
+  trainings: Training[];
 
   @Column()
   avatar: string;

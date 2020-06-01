@@ -37,6 +37,7 @@ class Athletes implements IAthletesRepository {
       where: {
         trainer_id: id,
       },
+      relations: ['trainings'],
     });
   }
 }

@@ -6,11 +6,14 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
 import uploadConfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
+import Training from '@modules/training/infra/typeorm/entities/Training';
 
 @Entity('athletes')
 class Athlete {
@@ -33,12 +36,26 @@ class Athlete {
   @Column()
   trainer_id: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(type => User, user => user.athletes)
   @JoinColumn({ name: 'trainer_id', referencedColumnName: 'id' })
   trainer: User;
 
+  @ManyToMany(type => Training, training => training.athletes)
+  @JoinTable({
+    name: 'athlete_training',
+    joinColumn: {
+      name: 'athlete_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'training_id',
+      referencedColumnName: 'id',
+    },
+  })
+  trainings: Training[];
+
   @Column()
-  sexo: boolean;
+  sexo: number;
 
   @Column('int')
   age: number;

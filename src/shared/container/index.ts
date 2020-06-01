@@ -18,6 +18,12 @@ import TrainingRepository from '@modules/training/infra/typeorm/repositories/Tra
 import IRoutinesRepository from '@modules/training/repositories/IRoutinesRepository';
 import RoutinesRepository from '@modules/training/infra/typeorm/repositories/RoutinesRepository';
 
+import IExercicesRepository from '@modules/training/repositories/IExercicesRepository';
+import ExercicesRepository from '@modules/training/infra/typeorm/repositories/ExercicesRepository';
+
+import IRoutineExerciceRepository from '@modules/training/repositories/IRoutineExerciceRepository';
+import RoutineExerciceRepository from '@modules/training/infra/typeorm/repositories/RoutineExerciceRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -41,4 +47,14 @@ container.registerSingleton<ITrainingRepository>(
 container.registerSingleton<IRoutinesRepository>(
   'RoutinesRepository',
   RoutinesRepository,
+);
+
+container.registerSingleton<IExercicesRepository>(
+  'ExercicesRepository',
+  ExercicesRepository,
+);
+
+container.registerSingleton<IRoutineExerciceRepository>(
+  'RoutineExerciceRepository',
+  RoutineExerciceRepository,
 );

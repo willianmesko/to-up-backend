@@ -10,5 +10,6 @@ const routinesController = new RoutinesController();
 
 routinesRouter.use(ensureAuthenticated);
 routinesRouter.post('/', routinesController.create);
+routinesRouter.get('/:training_id', routinesController.index);
 
 export default routinesRouter;
