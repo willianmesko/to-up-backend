@@ -9,14 +9,14 @@ import CreateTrainingService from '@modules/training/services/CreateTrainingServ
 export default class TrainingController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { title, description, difficulty, objective } = request.body;
+      const { title, description, cycle, objective } = request.body;
 
       const createTraining = container.resolve(CreateTrainingService);
 
       const training = await createTraining.execute({
         title,
         description,
-        difficulty,
+        cycle,
         objective,
         trainer_id: request.user.id,
       });

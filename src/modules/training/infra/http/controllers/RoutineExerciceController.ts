@@ -37,6 +37,7 @@ export default class RoutineExerciceController {
       return response.status(400).json({ error: err.message });
     }
   }
+
   public async edit(request: Request, response: Response): Promise<Response> {
     try {
       const data = request.body;

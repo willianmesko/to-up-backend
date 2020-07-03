@@ -35,7 +35,9 @@ class TrainingRepository implements ITrainingRepository {
     return training;
   }
 
-  public async create(trainingData: ICreateTrainingDTO): Promise<Training> {
+  public async create(
+    trainingData: ICreateTrainingDTO,
+  ): Promise<Training | undefined> {
     const training = this.ormRepository.create(trainingData);
 
     await this.ormRepository.save(training);

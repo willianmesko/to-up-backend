@@ -13,7 +13,7 @@ interface IRequest {
   name: string;
   email: string;
   trainer_id: string;
-
+  avatar: string;
   sexo: number;
   age: number;
   body_mass: number;
@@ -41,7 +41,7 @@ class CreateAthleteService {
     name,
     email,
     trainer_id,
-
+    avatar,
     sexo,
     age,
     body_mass,
@@ -76,10 +76,13 @@ class CreateAthleteService {
       return body_mass / (((stature / 100) * stature) / 100);
     }
 
+    function firstLetterUpercase(): string {
+      return name.charAt(0).toUpperCase() + name.slice(1);
+    }
     const hashedPassword = await this.hashProvider.generateHash(password);
 
     const athlete = this.athletesRepository.create({
-      name,
+      name: firstLetterUpercase(),
       email,
       password: hashedPassword,
 

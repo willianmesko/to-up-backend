@@ -37,6 +37,12 @@ export default class CreateRelationRoutineExercice1590709341177
             name: 'volume',
             type: 'int',
           },
+
+          {
+            name: 'observation',
+            type: 'varchar',
+            isNullable: true,
+          },
           {
             name: 'created_at',
             type: 'timestamp',

@@ -7,6 +7,6 @@ export default interface ITrainingRepository {
     training_id: string,
     trainer_id: string,
   ): Promise<Training | undefined>;
-  create(trainingData: ICreateTrainingDTO): Promise<Training>;
+  create(trainingData: ICreateTrainingDTO): Promise<Training | undefined>;
   save(training: Training): Promise<Training>;
 }

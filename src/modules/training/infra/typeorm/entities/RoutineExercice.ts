@@ -31,6 +31,9 @@ class RoutineExercice {
   @Column()
   volume: number;
 
+  @Column()
+  observation: string;
+
   @ManyToOne(type => Routine, routine => routine.routineExercice)
   @JoinColumn({ name: 'routine_id', referencedColumnName: 'id' })
   routine?: Routine;

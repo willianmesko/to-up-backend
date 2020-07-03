@@ -33,7 +33,7 @@ class Training {
   cover: string;
 
   @Column()
-  difficulty: number;
+  cycle: number;
 
   @Column()
   objective: number;

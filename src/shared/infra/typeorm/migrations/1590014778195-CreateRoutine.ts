@@ -20,6 +20,7 @@ export default class CreateRoutine1590014778195 implements MigrationInterface {
           {
             name: 'description',
             type: 'varchar',
+            isNullable: true,
           },
 
           {

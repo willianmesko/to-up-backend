@@ -13,7 +13,7 @@ export default class AthletesController {
         email,
         sexo,
         age,
-
+        avatar,
         body_mass,
         stature,
         aerobic_profile,
@@ -30,7 +30,7 @@ export default class AthletesController {
         trainer_id: request.user.id,
         sexo,
         age,
-
+        avatar,
         body_mass,
         stature,
         aerobic_profile,

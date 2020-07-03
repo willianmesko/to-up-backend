@@ -29,8 +29,6 @@ class CreateRoutineService {
       training_id,
     });
 
-    console.log(routine);
-
     return routine;
   }
 }

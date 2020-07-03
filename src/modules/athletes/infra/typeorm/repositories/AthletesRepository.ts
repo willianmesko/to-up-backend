@@ -31,7 +31,13 @@ class Athletes implements IAthletesRepository {
 
     return athlete;
   }
+  public async findById(id: string): Promise<Athlete | undefined> {
+    const athlete = await this.ormRepository.findOne({
+      where: { id },
+    });
 
+    return athlete;
+  }
   public async findAll(id: string): Promise<Athlete[]> {
     return this.ormRepository.find({
       where: {

@@ -16,6 +16,6 @@ export default interface ICreateAthleteDTO {
   physical_activity: number;
   objective: number;
   basal_metabolic_rate: number | undefined;
-
+  avatar?: string;
   imc: number | undefined;
 }

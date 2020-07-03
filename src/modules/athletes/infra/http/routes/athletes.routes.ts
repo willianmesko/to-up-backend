@@ -2,12 +2,15 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+
 import AthletesController from '@modules/athletes/infra/http/controllers/AthletesController';
+import AthleteAvatarController from '@modules/athletes/infra/http/controllers/AthleteAvatarController';
 
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 
 const athletesRouter = Router();
 const athletesController = new AthletesController();
+const athleteAvatarController = new AthleteAvatarController();
 const upload = multer(uploadConfig.multer);
 
 athletesRouter.use(ensureAuthenticated);
@@ -32,5 +35,12 @@ athletesRouter.post(
   athletesController.create,
 );
 athletesRouter.get('/', athletesController.list);
+
+athletesRouter.patch(
+  '/avatar/:athlete_id',
+  ensureAuthenticated,
+  upload.single('avatar'),
+  athleteAvatarController.update,
+);
 
 export default athletesRouter;

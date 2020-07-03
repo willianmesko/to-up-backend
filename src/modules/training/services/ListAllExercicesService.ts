@@ -17,7 +17,7 @@ class ListAllExercicesService {
   ) {}
 
   public async execute({ trainer_id }: IRequest): Promise<Exercice[]> {
-    const exercice = this.exercicesRepository.listAll(trainer_id);
+    const exercice = await this.exercicesRepository.listAll(trainer_id);
 
     return exercice;
   }

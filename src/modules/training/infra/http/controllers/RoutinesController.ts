@@ -15,7 +15,7 @@ export default class RoutinesController {
       const routines = await listAllRoutines.execute({
         training_id,
       });
-
+0
       return response.json(classToClass(routines));
     } catch (err) {
       return response.status(400).json({ error: err.message });

@@ -27,7 +27,7 @@ export default class CreateTraining1590001273923 implements MigrationInterface {
             isNullable: true,
           },
           {
-            name: 'difficulty',
+            name: 'cycle',
             type: 'int',
             default: 0,
           },

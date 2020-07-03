@@ -15,6 +15,9 @@ import AthletesRepository from '@modules/athletes/infra/typeorm/repositories/Ath
 import ITrainingRepository from '@modules/training/repositories/ITrainingRepository';
 import TrainingRepository from '@modules/training/infra/typeorm/repositories/TrainingRepository';
 
+import ITrainingAthleteRepository from '@modules/training/repositories/ITrainingAthleteRepository';
+import TrainingAthleteRepository from '@modules/training/infra/typeorm/repositories/TrainingAthleteRepository';
+
 import IRoutinesRepository from '@modules/training/repositories/IRoutinesRepository';
 import RoutinesRepository from '@modules/training/infra/typeorm/repositories/RoutinesRepository';
 
@@ -57,4 +60,9 @@ container.registerSingleton<IExercicesRepository>(
 container.registerSingleton<IRoutineExerciceRepository>(
   'RoutineExerciceRepository',
   RoutineExerciceRepository,
+);
+
+container.registerSingleton<ITrainingAthleteRepository>(
+  'TrainingAthleteRepository',
+  TrainingAthleteRepository,
 );
