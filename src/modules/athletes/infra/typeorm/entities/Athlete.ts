@@ -8,12 +8,14 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToMany,
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
 import uploadConfig from '@config/upload';
 import User from '@modules/users/infra/typeorm/entities/User';
 import Training from '@modules/training/infra/typeorm/entities/Training';
+import Evaluation from '@modules/athletes/infra/typeorm/entities/Evaluation';
 
 @Entity('athletes')
 class Athlete {
@@ -22,6 +24,12 @@ class Athlete {
 
   @Column()
   name: string;
+
+  @Column()
+  surname: string;
+
+  @Column()
+  ethnicity: number;
 
   @Column()
   email: string;
@@ -39,6 +47,10 @@ class Athlete {
   @ManyToOne(type => User, user => user.athletes)
   @JoinColumn({ name: 'trainer_id', referencedColumnName: 'id' })
   trainer: User;
+
+  @OneToMany(type => Evaluation, evaluation => evaluation.athletes)
+  @JoinColumn({ name: 'athlete_id', referencedColumnName: 'id' })
+  evaluation: Evaluation[];
 
   @ManyToMany(type => Training, training => training.athletes)
   @JoinTable({

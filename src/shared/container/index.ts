@@ -27,6 +27,9 @@ import ExercicesRepository from '@modules/training/infra/typeorm/repositories/Ex
 import IRoutineExerciceRepository from '@modules/training/repositories/IRoutineExerciceRepository';
 import RoutineExerciceRepository from '@modules/training/infra/typeorm/repositories/RoutineExerciceRepository';
 
+import IEvaluationRepository from '@modules/athletes/repositories/IEvaluationRepository';
+import EvaluationRepository from '@modules/athletes/infra/typeorm/repositories/EvaluationRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -65,4 +68,9 @@ container.registerSingleton<IRoutineExerciceRepository>(
 container.registerSingleton<ITrainingAthleteRepository>(
   'TrainingAthleteRepository',
   TrainingAthleteRepository,
+);
+
+container.registerSingleton<IEvaluationRepository>(
+  'EvaluationRepository',
+  EvaluationRepository,
 );

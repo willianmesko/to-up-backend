@@ -10,6 +10,7 @@ import trainingRouter from '@modules/training/infra/http/routes/training.routes'
 import routinesRouter from '@modules/training/infra/http/routes/routines.routes';
 import exercicesRouter from '@modules/training/infra/http/routes/exercices.routes';
 import routineExerciceRouter from '@modules/training/infra/http/routes/routine_exercice.routes';
+import evaluationRouter from '@modules/athletes/infra/http/routes/evaluation.routes';
 
 const routes = Router();
 
@@ -22,5 +23,6 @@ routes.use('/training', trainingRouter);
 routes.use('/routines', routinesRouter);
 routes.use('/exercices', exercicesRouter);
 routes.use('/routine_exercice', routineExerciceRouter);
+routes.use('/evaluation', evaluationRouter);
 
 export default routes;

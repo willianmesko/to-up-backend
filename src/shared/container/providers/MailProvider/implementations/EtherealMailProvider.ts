@@ -36,8 +36,8 @@ export default class FakeMailProvider implements IMailProvider {
   }: ISendMailDTO): Promise<void> {
     const message = await this.client.sendMail({
       from: {
-        name: from?.name || 'Equipe GoBarber',
-        address: from?.email || 'equipe@gobarber.com.br',
+        name: from?.name || 'Equipe ToUp',
+        address: from?.email || 'equipe@toUp.com.br',
       },
       to: {
         name: to.name,

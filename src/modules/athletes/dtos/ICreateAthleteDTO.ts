@@ -2,8 +2,9 @@ import Training from '@modules/training/infra/typeorm/entities/Training';
 
 export default interface ICreateAthleteDTO {
   name: string;
+  surname: string;
   email: string;
-
+  ethnicity: number;
   age: number;
   password: string;
   trainer_id: string;

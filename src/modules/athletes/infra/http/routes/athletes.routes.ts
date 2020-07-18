@@ -20,8 +20,10 @@ athletesRouter.post(
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
+      surname: Joi.string().required(),
       email: Joi.string().email().required(),
       sexo: Joi.number().required(),
+      ethnicity: Joi.number().required(),
       age: Joi.number().required(),
       body_mass: Joi.number().required(),
       stature: Joi.number().required(),

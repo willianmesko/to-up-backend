@@ -3,17 +3,18 @@ import crypto from 'crypto';
 import AppError from '@shared/errors/AppError';
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
 
-import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
-// import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 
 interface IRequest {
   name: string;
+  surname: string;
   email: string;
   trainer_id: string;
   avatar: string;
+  ethnicity: number;
   sexo: number;
   age: number;
   body_mass: number;
@@ -30,18 +31,19 @@ class CreateAthleteService {
     @inject('AthletesRepository')
     private athletesRepository: IAthletesRepository,
 
-    @inject('StorageProvider')
-    private storageProvider: IStorageProvider,
-
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
   ) {}
 
   public async execute({
     name,
+    surname,
     email,
     trainer_id,
-    avatar,
+    ethnicity,
     sexo,
     age,
     body_mass,
@@ -79,13 +81,14 @@ class CreateAthleteService {
     function firstLetterUpercase(): string {
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
-    const hashedPassword = await this.hashProvider.generateHash(password);
+    const hashedPassword = await this.hashProvider.generateHash('12345');
 
-    const athlete = this.athletesRepository.create({
+    const athlete = await this.athletesRepository.create({
       name: firstLetterUpercase(),
+      surname,
       email,
       password: hashedPassword,
-
+      ethnicity,
       trainer_id,
       sexo,
       age,

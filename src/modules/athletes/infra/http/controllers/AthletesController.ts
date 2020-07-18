@@ -10,7 +10,9 @@ export default class AthletesController {
     try {
       const {
         name,
+        surname,
         email,
+        ethnicity,
         sexo,
         age,
         avatar,
@@ -21,11 +23,13 @@ export default class AthletesController {
         physical_activity,
         objective,
       } = request.body;
-
+      console.log(surname);
       const createAthlete = container.resolve(CreateAthleteService);
 
       const athlete = await createAthlete.execute({
         name,
+        surname,
+        ethnicity,
         email,
         trainer_id: request.user.id,
         sexo,

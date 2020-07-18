@@ -23,6 +23,14 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'surname',
+            type: 'varchar',
+          },
+          {
+            name: 'ethnicity',
+            type: 'float',
+          },
+          {
             name: 'email',
             type: 'varchar',
             isUnique: true,
