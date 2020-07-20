@@ -1,6 +1,6 @@
 {
-  "name": "go-barber-api-ts",
-  "author": "Henrique Tavares",
+  "name": "to-up",
+  "author": "Willian Mesko",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -33,9 +33,9 @@
     "jest": "25.5.4",
     "prettier": "^2.0.4",
     "ts-jest": "25.5.0",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.8.3"
+    "ts-node-dev": "1.0.0-pre.44",
+    "tsconfig-paths": "3.9.0",
+    "typescript": "3.8.3"
   },
   "dependencies": {
     "@types/cors": "^2.8.6",

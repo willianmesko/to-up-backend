@@ -12,6 +12,7 @@ export default class AthletesController {
         name,
         surname,
         email,
+        password,
         ethnicity,
         sexo,
         age,
@@ -23,12 +24,13 @@ export default class AthletesController {
         physical_activity,
         objective,
       } = request.body;
-      console.log(surname);
+
       const createAthlete = container.resolve(CreateAthleteService);
 
       const athlete = await createAthlete.execute({
         name,
         surname,
+        password,
         ethnicity,
         email,
         trainer_id: request.user.id,

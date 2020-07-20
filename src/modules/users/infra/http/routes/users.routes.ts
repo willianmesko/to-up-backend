@@ -28,6 +28,13 @@ usersRouter.post(
   usersController.create,
 );
 
+usersRouter.get(
+  '/',
+  ensureAuthenticated,
+
+  usersController.index,
+);
+
 usersRouter.patch(
   '/avatar',
   ensureAuthenticated,

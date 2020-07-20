@@ -2,6 +2,7 @@ import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
 export default class CreateAthletes1589911016879 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`);
     await queryRunner.createTable(
       new Table({
         name: 'athletes',
@@ -29,6 +30,7 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
           {
             name: 'ethnicity',
             type: 'float',
+            isNullable: true,
           },
           {
             name: 'email',
@@ -48,49 +50,33 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
           {
             name: 'age',
             type: 'int',
+            isNullable: true,
           },
 
           {
             name: 'body_mass',
             type: 'float',
+            isNullable: true,
           },
           {
             name: 'stature',
             type: 'float',
+            isNullable: true,
           },
-          {
-            name: 'aerobic_profile',
-            type: 'int',
-          },
+
           {
             name: 'training_level',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'physical_activity',
             type: 'int',
+            isNullable: true,
           },
           {
             name: 'objective',
             type: 'int',
-          },
-          {
-            name: 'basal_metabolic_rate',
-            type: 'float',
-          },
-          {
-            name: 'spent_daily_train',
-            type: 'float',
-            isNullable: true,
-          },
-          {
-            name: 'mass_muscle',
-            type: 'float',
-            isNullable: true,
-          },
-          {
-            name: 'mass_fat',
-            type: 'float',
             isNullable: true,
           },
 
@@ -99,10 +85,7 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             type: 'int',
             isNullable: true,
           },
-          {
-            name: 'imc',
-            type: 'float',
-          },
+
           {
             name: 'created_at',
             type: 'timestamp',

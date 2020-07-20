@@ -4,19 +4,18 @@ export default interface ICreateAthleteDTO {
   name: string;
   surname: string;
   email: string;
-  ethnicity: number;
-  age: number;
+  ethnicity?: number;
+  age?: number;
   password: string;
-  trainer_id: string;
+  trainer_id?: string;
   trainings?: Training[];
   sexo: number;
-  body_mass: number;
-  stature: number;
-  aerobic_profile: number;
-  training_level: number;
-  physical_activity: number;
-  objective: number;
-  basal_metabolic_rate: number | undefined;
+  body_mass?: number;
+  stature?: number;
+  aerobic_profile?: number;
+  training_level?: number;
+  physical_activity?: number;
+  objective?: number;
+
   avatar?: string;
-  imc: number | undefined;
 }

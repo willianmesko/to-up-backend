@@ -90,23 +90,8 @@ class Athlete {
   @Column('int')
   objective: number;
 
-  @Column('float')
-  basal_metabolic_rate: number;
-
-  @Column('float')
-  spent_daily_train: number;
-
-  @Column('float')
-  mass_muscle: number;
-
-  @Column('float')
-  mass_fat: number;
-
   @Column('int')
   personal_profile: number;
-
-  @Column('float')
-  imc: number;
 
   @Expose({ name: 'avatar_url' })
   getAvatarUrl(): string | null {
