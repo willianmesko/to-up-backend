@@ -29,8 +29,8 @@ class DuplicateTrainingService {
     training_id,
     trainer_id,
   }: IRequest): Promise<Training> {
-    function firstLetterUpercase(title): string {
-      return title.charAt(0).toUpperCase() + title.slice(1);
+    function firstLetterUpercase(name: string): string {
+      return name.charAt(0).toUpperCase() + name.slice(1);
     }
 
     const clonedTraining = undefined;
@@ -52,6 +52,7 @@ class DuplicateTrainingService {
       };
 
       //cria a copia do treino
+
       clonedTraining = await this.trainingRepository.create(cloneTraining);
       //procura e clona todas rotinas e exercicios vinculadas ao treino
       if (clonedTraining.id) {

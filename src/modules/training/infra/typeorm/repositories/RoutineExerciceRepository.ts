@@ -28,9 +28,9 @@ class RoutineExerciceRepository implements IRoutineExerciceRepository {
     return this.ormRepository.save(routineExercice);
   }
 
-  public async find(id: string): Promise<RoutineExercice> {
+  public async find(id: string): Promise<RoutineExercice | undefined> {
     const routineExercice = await this.ormRepository.findOne({
-      where: { id: id },
+      where: { id },
     });
 
     return routineExercice;

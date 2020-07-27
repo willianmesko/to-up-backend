@@ -4,6 +4,7 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 
 import AthletesController from '@modules/athletes/infra/http/controllers/AthletesController';
+import AthleteWorkoutController from '@modules/athletes/infra/http/controllers/AthleteWorkoutController';
 import AthleteAvatarController from '@modules/athletes/infra/http/controllers/AthleteAvatarController';
 import AthleteSignUpController from '@modules/athletes/infra/http/controllers/AthleteSignUpController';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -12,6 +13,8 @@ const athletesRouter = Router();
 const athletesController = new AthletesController();
 const athleteAvatarController = new AthleteAvatarController();
 const athleteSignUpController = new AthleteSignUpController();
+const athleteWorkoutController = new AthleteWorkoutController();
+
 const upload = multer(uploadConfig.multer);
 
 athletesRouter.post(
@@ -37,7 +40,11 @@ athletesRouter.post(
   athletesController.create,
 );
 athletesRouter.get('/', ensureAuthenticated, athletesController.list);
-
+athletesRouter.get(
+  '/workout',
+  ensureAuthenticated,
+  athleteWorkoutController.show,
+);
 athletesRouter.post('/signup', athleteSignUpController.create);
 
 athletesRouter.patch(

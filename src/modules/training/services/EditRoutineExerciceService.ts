@@ -12,7 +12,7 @@ class EditRoutineExerciceService {
     private routineExerciceRepository: IRoutineExerciceRepository,
   ) {}
 
-  public async execute({ editRoutineExercice }): Promise<RoutineExercice> {
+  public async execute({ editRoutineExercice }): Promise<void> {
     editRoutineExercice.map(async editData => {
       const routineExercice = await this.routineExerciceRepository.find(
         editData.id,

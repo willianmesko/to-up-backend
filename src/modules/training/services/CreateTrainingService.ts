@@ -49,7 +49,7 @@ class CreateTrainingService {
 
     if (cycle > 1) {
       for (var i = 1; i <= cycle; i++) {
-        await this.routinesRepository.create({
+        this.routinesRepository.create({
           title: 'rotina',
           training_id: training.id,
           description: '',

@@ -26,7 +26,7 @@ class AddAthletesToTrainingService {
     athletes_ids,
     training_id,
     trainer_id,
-  }: IRequest): Promise<Training | undefined> {
+  }: IRequest): Promise<void> {
     const training = await this.trainingRepository.findById(
       training_id,
       trainer_id,

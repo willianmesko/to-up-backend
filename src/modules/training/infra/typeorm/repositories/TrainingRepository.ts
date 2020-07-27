@@ -4,6 +4,7 @@ import ITrainingRepository from '@modules/training/repositories/ITrainingReposit
 import ICreateTrainingDTO from '@modules/training/dtos/ICreateTrainingDTO';
 
 import Training from '@modules/training/infra/typeorm/entities/Training';
+import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 
 class TrainingRepository implements ITrainingRepository {
   private ormRepository: Repository<Training>;
@@ -21,6 +22,15 @@ class TrainingRepository implements ITrainingRepository {
     });
 
     return training;
+  }
+
+  public async findByAthleteId(id: string): Promise<Athlete | undefined> {
+    const athlete = await this.ormRepository.find({
+      where: { id },
+      relations: ['trainer'],
+    });
+
+    return athlete;
   }
 
   public async findById(

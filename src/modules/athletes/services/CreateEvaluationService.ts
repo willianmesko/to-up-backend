@@ -102,7 +102,7 @@ class CreateEvaluationService {
       suprailiac +
       thigh;
 
-    const body_density: number = () => {
+    const body_density: number | undefined = () => {
       //MASCULINO
       if (athlete_sexo === 0) {
         return (

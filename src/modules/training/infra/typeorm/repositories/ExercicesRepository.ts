@@ -26,7 +26,7 @@ class ExercicesRepository implements IExercicesRepository {
 
   public async listAll(trainer_id: string): Promise<Exercice[]> {
     return this.ormRepository.find({
-      where: { trainer_id: trainer_id },
+      where: { trainer_id },
     });
   }
 }

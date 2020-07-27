@@ -33,6 +33,12 @@ export default class CreateAthletes1589911016879 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'aerobic_profile',
+            type: 'float',
+            isNullable: true,
+          },
+
+          {
             name: 'email',
             type: 'varchar',
             isUnique: true,
