@@ -22,7 +22,9 @@ describe('UpdateProfile', () => {
 
   it('should be able to update the profile', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
+      sexo: 0,
       email: 'johndoe@example.com',
       password: '123456',
     });
@@ -49,13 +51,17 @@ describe('UpdateProfile', () => {
 
   it('should not be able to change the email to another existing email', async () => {
     await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
+      sexo: 0,
       email: 'johndoe@example.com',
       password: '123456',
     });
 
     const user = await fakeUsersRepository.create({
-      name: 'John Trê',
+      name: 'John',
+      surname: 'trê',
+      sexo: 0,
       email: 'johntre@example.com',
       password: '123456',
     });
@@ -71,7 +77,9 @@ describe('UpdateProfile', () => {
 
   it('should be able to update the password', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
+      sexo: 0,
       email: 'johndoe@example.com',
       password: '123456',
     });
@@ -89,7 +97,9 @@ describe('UpdateProfile', () => {
 
   it('should not be able to update the password without old password', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
+      sexo: 0,
       email: 'johndoe@example.com',
       password: '123456',
     });
@@ -106,7 +116,9 @@ describe('UpdateProfile', () => {
 
   it('should not be able to update the password with wrong old password', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
+      sexo: 0,
       email: 'johndoe@example.com',
       password: '123456',
     });

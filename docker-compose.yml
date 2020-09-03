@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: toup_app
+    restart: always
+    tty: true
+    ports:
+      - '8000:8000'
+    volumes:
+      - .:/app
+    networks:
+      - app-network
+    depends_on:
+      - 'db_postgres'
+      - 'db_mongo'
+      - 'redis'
+
+  db_postgres:
+    image: postgres
+    volumes:
+      - './database:/var/lib/postgresql/data'
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: meskosama
+      POSTGRES_DB: to-up
+    networks:
+      - app-network
+
+  db_mongo:
+    image: mongo
+    networks:
+      - app-network
+    depends_on:
+      - 'db_postgres'
+
+  redis:
+    image: redis:alpine
+    networks:
+      - app-network
+    depends_on:
+      - 'db_mongo'
+networks:
+  app-network:
+    driver: bridge
