@@ -30,7 +30,16 @@ class CreateExerciceService {
     function firstLetterUpercase(): string {
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
-    const routine = this.exercicesRepository.create({
+    const existExercice = await this.exercicesRepository.findByExerciceByNameAndTrainer(
+      { exercice_name: firstLetterUpercase(), trainer_id },
+    );
+
+    if (existExercice) {
+      throw new AppError('Exercicio já cadastrado');
+    }
+
+    console.log(youtube_video_id);
+    const exercice = await this.exercicesRepository.create({
       name: firstLetterUpercase(),
       muscle_group_id,
       muscle_group_name,
@@ -38,7 +47,7 @@ class CreateExerciceService {
       trainer_id,
     });
 
-    return routine;
+    return exercice;
   }
 }
 

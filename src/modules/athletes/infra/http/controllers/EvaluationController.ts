@@ -89,7 +89,7 @@ export default class EvaluationController {
 
       const { athlete_id } = request.params;
 
-      const evaluation = await showEvaluation.execute({ athlete_id });
+      const evaluation = await showEvaluation.execute(athlete_id);
 
       return response.json(classToClass(evaluation));
     } catch (err) {

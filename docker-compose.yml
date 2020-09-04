@@ -2,9 +2,7 @@ version: '3'
 
 services:
   app:
-    build: .
-    container_name: toup_app
-    restart: always
+    image: mesko56/to-up-app:v1
     tty: true
     ports:
       - '8000:8000'
