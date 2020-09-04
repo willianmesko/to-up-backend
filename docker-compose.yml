@@ -18,7 +18,7 @@ services:
   db_postgres:
     image: postgres
     volumes:
-      - './database:/var/lib/postgresql/data'
+      - './database/pg:/var/lib/postgresql/data'
     restart: always
     environment:
       POSTGRES_PASSWORD: meskosama
@@ -28,6 +28,8 @@ services:
 
   db_mongo:
     image: mongo
+    volumes:
+      - './database/mongo:/data/db'
     networks:
       - app-network
     depends_on:
@@ -35,6 +37,8 @@ services:
 
   redis:
     image: redis:alpine
+    volumes:
+      - './database/redis:/data'
     networks:
       - app-network
     depends_on:

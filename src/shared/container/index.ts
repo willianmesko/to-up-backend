@@ -30,6 +30,9 @@ import RoutineExerciceRepository from '@modules/training/infra/typeorm/repositor
 import IEvaluationRepository from '@modules/athletes/repositories/IEvaluationRepository';
 import EvaluationRepository from '@modules/athletes/infra/typeorm/repositories/EvaluationRepository';
 
+import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
+import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -73,4 +76,9 @@ container.registerSingleton<ITrainingAthleteRepository>(
 container.registerSingleton<IEvaluationRepository>(
   'EvaluationRepository',
   EvaluationRepository,
+);
+
+container.registerSingleton<INotificationsRepository>(
+  'NotificationsRepository',
+  NotificationsRepository,
 );
