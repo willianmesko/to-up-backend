@@ -4,6 +4,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
+import IAmqpProvider from '@shared/container/providers/AmqpProvider/models/IAmqpProvider';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 
@@ -26,6 +27,9 @@ class CreateUserService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
+
+    @inject('AmqpProvider')
+    private amqpProvider: IAmqpProvider,
   ) {}
 
   public async execute({
@@ -45,13 +49,15 @@ class CreateUserService {
     function firstLetterUpercase(): string {
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
-    const user = this.usersRepository.create({
+    const user = await this.usersRepository.create({
       name: firstLetterUpercase(),
       surname,
       sexo,
       email,
       password: hashedPassword,
     });
+
+    await this.amqpProvider.publishInQueue('test', JSON.stringify(user));
 
     await this.cacheProvider.invalidatePrefix('providers-list');
 

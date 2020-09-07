@@ -43,6 +43,19 @@ services:
       - app-network
     depends_on:
       - 'db_mongo'
+
+  rabbitmq:
+    image: 'rabbitmq:3-management'
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - app-network
+    volumes:
+      - 'rabbitmq_data:/data'
+
 networks:
   app-network:
     driver: bridge
+volumes:
+  rabbitmq_data:

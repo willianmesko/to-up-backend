@@ -6,6 +6,14 @@ import FakeCacheProvider from '@shared/container/providers/CacheProvider/fakes/F
 
 import CreateAthleteService from './CreateAthleteService';
 
+enum Athlete {
+  name = 'john',
+  surname = 'Doue',
+  email = 'johndue@gmail',
+  password = '12345',
+  sexo = 1,
+}
+
 let fakeAthleteRepository: FakeAthleteRepository;
 let fakeHashProvider: FakeHashProvider;
 let fakeCacheProvider: FakeCacheProvider;
@@ -24,14 +32,8 @@ describe('CreateAthlete', () => {
     );
   });
 
-  it('should be able to create a new athlete', async () => {
-    const athlete = await createAthlete.execute({
-      name: 'John',
-      surname: 'Doe',
-      sexo: 0,
-      email: 'johndoe@example.com',
-      password: '123456',
-    });
+  it.only('should be able to create a new athlete', async () => {
+    const athlete = await createAthlete.execute(Athlete);
 
     expect(athlete).toHaveProperty('id');
   });

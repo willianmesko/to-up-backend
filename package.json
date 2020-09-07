@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node-dev -r tsconfig-paths/register --inspect --transpileOnly --ignore-watch node_modules src/shared/infra/http/server.ts --poll",
+    "start": "ts-node-dev -r tsconfig-paths/register --inspect --transpileOnly --ignore-watch node_modules src/shared/infra/server.ts --poll",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "jest"
   },
@@ -37,7 +37,9 @@
     "typescript": "3.8.3"
   },
   "dependencies": {
+    "@types/amqplib": "^0.5.13",
     "@types/cors": "^2.8.6",
+    "amqplib": "^0.6.0",
     "aws-sdk": "^2.675.0",
     "bcryptjs": "^2.4.3",
     "celebrate": "^12.1.1",
