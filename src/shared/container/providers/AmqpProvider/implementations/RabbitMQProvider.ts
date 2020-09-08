@@ -1,4 +1,4 @@
-import { Connection, Channel, connect } from 'amqplib';
+import { Connection, Channel, connect, Message } from 'amqplib';
 import IAmqpProvider from '../models/IAmqpProvider';
 
 export default class RabbitMQProvider implements IAmqpProvider {
@@ -6,7 +6,7 @@ export default class RabbitMQProvider implements IAmqpProvider {
 
   private channel: Channel;
 
-  public uri = 'amqp://admin:admin@localhost:5672';
+  public uri = 'amqp://adapter-shellbox:lJ7Q0l28RPiE@localhost:5672/shared';
 
   async start(): Promise<void> {
     try {
@@ -20,7 +20,9 @@ export default class RabbitMQProvider implements IAmqpProvider {
   }
 
   async publishInQueue(queue: string, message: string): Promise<boolean> {
-    console.log(message);
+    if (!this.conn) {
+      await this.start;
+    }
     return this.channel.sendToQueue(queue, Buffer.from(message));
   }
 
@@ -32,10 +34,13 @@ export default class RabbitMQProvider implements IAmqpProvider {
     return this.channel.publish(exchange, routingKey, Buffer.from(message));
   }
 
-  //   async consume(queue: string, callback: (message: Message) => void) {
-  //     return this.channel.consume(queue, message => {
-  //       callback(message);
-  //       this.channel.ack(message);
-  //     });
-  //   }
+  async consume(
+    queue: string,
+    callback: (message: Message) => void,
+  ): Promise<void | null> {
+    return this.channel.consume(queue, message => {
+      callback(message);
+      this.channel.ack(message);
+    });
+  }
 }

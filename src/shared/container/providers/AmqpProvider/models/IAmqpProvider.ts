@@ -6,5 +6,5 @@ export default interface IAmqpProvider {
     routingKey: string,
     message: string,
   ): Promise<boolean>;
-  // consume(queue: string, callback: (message: Message) => void): Promise<void>;
+  consume(queue: string, callback: Function): Promise<void | null>;
 }

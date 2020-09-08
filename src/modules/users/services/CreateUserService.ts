@@ -55,7 +55,10 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    await this.amqpProvider.publishInQueue('test', JSON.stringify(user));
+    await this.amqpProvider.publishInQueue(
+      'payly.conciliation-settlement.transaction.create',
+      JSON.stringify(user),
+    );
 
     await this.cacheProvider.invalidatePrefix('providers-list');
 

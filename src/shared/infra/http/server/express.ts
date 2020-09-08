@@ -18,12 +18,11 @@ import AthleteAvatarController from '@modules/athletes/infra/http/controllers/At
 import AthleteWorkoutController from '@modules/athletes/infra/http/controllers/AthleteWorkoutController';
 import AthleteSignUpController from '@modules/athletes/infra/http/controllers/AthleteSignUpController';
 import profileRouter from '@modules/users/infra/http/routes/profile.routes';
-import athleteRouter from '@modules/athletes/infra/http/routes/athletes.routes';
+
 import trainingRouter from '@modules/training/infra/http/routes/training.routes';
 import routinesRouter from '@modules/training/infra/http/routes/routines.routes';
 import exercicesRouter from '@modules/training/infra/http/routes/exercices.routes';
 import routineExerciceRouter from '@modules/training/infra/http/routes/routine_exercice.routes';
-import evaluationRouter from '@modules/athletes/infra/http/routes/evaluation.routes';
 
 import rateLimiter from '../middlewares/rateLimiter';
 
@@ -42,14 +41,6 @@ class HttpServer {
         AthleteAvatarController,
         AthleteWorkoutController,
         AthleteSignUpController,
-
-        profileRouter,
-        athleteRouter,
-        trainingRouter,
-        routinesRouter,
-        exercicesRouter,
-        routineExerciceRouter,
-        evaluationRouter,
       ], // we specify controllers we want to use
     });
 
