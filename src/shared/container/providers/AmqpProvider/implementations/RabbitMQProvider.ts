@@ -13,6 +13,7 @@ export default class RabbitMQProvider implements IAmqpProvider {
       this.conn = await connect(this.uri);
 
       this.channel = await this.conn.createChannel();
+      console.log('Rabbitmq server running');
     } catch (error) {
       console.log('eroooooooooooo', error);
     }

@@ -14,7 +14,7 @@ class TrainingAthleteRepository implements ITrainingAthleteRepository {
   public async addAthleteToTraining(
     training_id: string,
     athlete_id: string,
-  ): Promise<Training> {
+  ): Promise<Training[]> {
     {
       console.log('opa', training_id);
     }

@@ -29,11 +29,8 @@ class CreateTrainingService {
     cycle,
     objective,
   }: IRequest): Promise<Training> {
-    function firstLetterUpercase(): string {
-      return title.charAt(0).toUpperCase() + title.slice(1);
-    }
     const training = await this.trainingRepository.create({
-      title: firstLetterUpercase(),
+      title,
       cycle,
       objective,
       description,

@@ -78,15 +78,11 @@ class CreateAthleteService {
     //   return body_mass / (((stature / 100) * stature) / 100);
     // }
 
-    function firstLetterUpercase(): string {
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    }
-
     const signUpAthlete = !password ? '12345' : password;
     const hashedPassword = await this.hashProvider.generateHash(signUpAthlete);
 
     const athlete = await this.athletesRepository.create({
-      name: firstLetterUpercase(),
+      name,
       surname,
       email,
       password: hashedPassword,

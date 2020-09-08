@@ -1,13 +1,19 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import { JsonController, Body, Res, Post } from 'routing-controllers';
 import CreateAthleteService from '@modules/athletes/services/CreateAthleteService';
+import ICreateAthleteDTO from '../../../dtos/ICreateAthleteDTO';
 
+@JsonController('/athletes')
 export default class AthleteSignUpController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/signup')
+  async create(
+    @Body() body: ICreateAthleteDTO,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
-      const { name, surname, email, password, sexo } = request.body;
+      const { name, surname, email, password, sexo } = body;
 
       const createAthlete = container.resolve(CreateAthleteService);
 

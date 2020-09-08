@@ -46,11 +46,9 @@ class CreateUserService {
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
-    function firstLetterUpercase(): string {
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    }
+
     const user = await this.usersRepository.create({
-      name: firstLetterUpercase(),
+      name,
       surname,
       sexo,
       email,

@@ -1,14 +1,29 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  Body,
+  Res,
+  Get,
+  Post,
+  UseBefore,
+} from 'routing-controllers';
 import CreateUserService from '@modules/users/services/CreateUserService';
-import FindAllUsers from '@modules/users/services/FindAllUsersService';
+import FindAllUsersService from '@modules/users/services/FindAllUsersService';
 
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import ICreateUserDTO from '../../../dtos/ICreateUserDTO';
+
+@JsonController('/users')
 export default class UsersController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Body() body: ICreateUserDTO,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
-      const { name, surname, sexo, email, password } = request.body;
+      const { name, surname, sexo, email, password } = body;
 
       const createUser = container.resolve(CreateUserService);
 
@@ -26,9 +41,11 @@ export default class UsersController {
     }
   }
 
-  public async index(request: Request, response: Response): Promise<Response> {
+  @Get('/')
+  @UseBefore(ensureAuthenticated)
+  async index(@Res() response: Response): Promise<Response> {
     try {
-      const findAll = container.resolve(FindAllUsers);
+      const findAll = container.resolve(FindAllUsersService);
 
       const user = await findAll.execute();
 

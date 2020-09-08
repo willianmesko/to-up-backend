@@ -29,10 +29,6 @@ class DuplicateTrainingService {
     training_id,
     trainer_id,
   }: IRequest): Promise<Training> {
-    function firstLetterUpercase(name: string): string {
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    }
-
     const clonedTraining = undefined;
 
     const findTraining = await this.trainingRepository.findById(
@@ -43,7 +39,7 @@ class DuplicateTrainingService {
     //Procura treino a ser clonado
     if (findTraining) {
       const cloneTraining = {
-        title: firstLetterUpercase(title),
+        title,
         description: findTraining.description,
         cover: findTraining.cover,
         cycle: findTraining.cycle,

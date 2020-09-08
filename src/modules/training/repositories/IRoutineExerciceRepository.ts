@@ -7,5 +7,5 @@ export default interface IRoutineExerciceRepository {
     routineExerciceData: ICreateRoutineExerciceDTO,
   ): Promise<RoutineExercice>;
   save(routineExercice: RoutineExercice): Promise<RoutineExercice>;
-  find(id: string): Promise<RoutineExercice>;
+  find(id: string): Promise<RoutineExercice | undefined>;
 }

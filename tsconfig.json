@@ -12,7 +12,8 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@decorators/*": ["@decorators/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,

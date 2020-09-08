@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  BeforeInsert,
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 
@@ -13,15 +14,19 @@ import { Exclude, Expose } from 'class-transformer';
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 import Training from '@modules/training/infra/typeorm/entities/Training';
 
+import { FirstLatter } from '@decorators';
+
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
+  @FirstLatter()
   name: string;
 
   @Column()
+  @FirstLatter()
   surname: string;
 
   @Column()

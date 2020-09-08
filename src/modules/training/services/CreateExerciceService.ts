@@ -27,11 +27,8 @@ class CreateExerciceService {
     youtube_video_id,
     trainer_id,
   }: IRequest): Promise<Exercice> {
-    function firstLetterUpercase(): string {
-      return name.charAt(0).toUpperCase() + name.slice(1);
-    }
     const existExercice = await this.exercicesRepository.findByExerciceByNameAndTrainer(
-      { exercice_name: firstLetterUpercase(), trainer_id },
+      { exercice_name: name, trainer_id },
     );
 
     if (existExercice) {
@@ -40,7 +37,7 @@ class CreateExerciceService {
 
     console.log(youtube_video_id);
     const exercice = await this.exercicesRepository.create({
-      name: firstLetterUpercase(),
+      name,
       muscle_group_id,
       muscle_group_name,
       youtube_video_id,
