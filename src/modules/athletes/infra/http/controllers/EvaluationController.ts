@@ -1,12 +1,25 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  UseBefore,
+  Get,
+  Req,
+  Res,
+  Post,
+} from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateEvaluationService from '@modules/athletes/services/CreateEvaluationService';
 import ShowEvaluationAthleteService from '@modules/athletes/services/ShowEvaluationAthleteService';
-
+@JsonController('/athletes/evaluation')
+@UseBefore(ensureAuthenticated)
 export default class EvaluationController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const {
         type,
@@ -83,7 +96,11 @@ export default class EvaluationController {
     }
   }
 
-  public async list(request: Request, response: Response): Promise<Response> {
+  @Get('/')
+  async list(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const showEvaluation = container.resolve(ShowEvaluationAthleteService);
 
