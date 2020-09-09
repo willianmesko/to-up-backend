@@ -22,11 +22,9 @@ class User {
   id: string;
 
   @Column()
-  @FirstLatter()
   name: string;
 
   @Column()
-  @FirstLatter()
   surname: string;
 
   @Column()

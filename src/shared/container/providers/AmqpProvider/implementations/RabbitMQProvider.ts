@@ -6,7 +6,7 @@ export default class RabbitMQProvider implements IAmqpProvider {
 
   private channel: Channel;
 
-  public uri = 'amqp://adapter-shellbox:lJ7Q0l28RPiE@localhost:5672/shared';
+  public uri = 'amqp://admin:admin@localhost:5672';
 
   async start(): Promise<void> {
     try {

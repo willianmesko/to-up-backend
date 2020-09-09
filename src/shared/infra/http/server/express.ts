@@ -17,13 +17,9 @@ import AthletetesController from '@modules/athletes/infra/http/controllers/Athle
 import AthleteAvatarController from '@modules/athletes/infra/http/controllers/AthleteAvatarController';
 import AthleteWorkoutController from '@modules/athletes/infra/http/controllers/AthleteWorkoutController';
 import AthleteSignUpController from '@modules/athletes/infra/http/controllers/AthleteSignUpController';
-import profileRouter from '@modules/users/infra/http/routes/profile.routes';
-
-import trainingRouter from '@modules/training/infra/http/routes/training.routes';
-import routinesRouter from '@modules/training/infra/http/routes/routines.routes';
-import exercicesRouter from '@modules/training/infra/http/routes/exercices.routes';
-import routineExerciceRouter from '@modules/training/infra/http/routes/routine_exercice.routes';
-
+import ProfileController from '@modules/users/infra/http/controllers/ProfileController';
+import ForgotPasswordController from '@modules/users/infra/http/controllers/ForgotPasswordController';
+import ResetPasswordController from '@modules/users/infra/http/controllers/ResetPasswordController';
 import rateLimiter from '../middlewares/rateLimiter';
 
 class HttpServer {
@@ -36,11 +32,13 @@ class HttpServer {
         SessionsController,
         UsersController,
         UserAvatarController,
-
+        ProfileController,
         AthletetesController,
         AthleteAvatarController,
         AthleteWorkoutController,
         AthleteSignUpController,
+        ForgotPasswordController,
+        ResetPasswordController,
       ], // we specify controllers we want to use
     });
 

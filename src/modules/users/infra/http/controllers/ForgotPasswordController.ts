@@ -1,11 +1,20 @@
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { container } from 'tsyringe';
-
+import { JsonController, Body, Res, Post } from 'routing-controllers';
 import SendForgotPasswordEmailService from '@modules/users/services/SendForgotPasswordEmailService';
 
+interface IRequest {
+  email: string;
+}
+
+@JsonController('/password')
 export default class ForgotPasswordController {
-  public async create(request: Request, response: Response): Promise<Response> {
-    const { email } = request.body;
+  @Post('/forgot')
+  async create(
+    @Body() body: IRequest,
+    @Res() response: Response,
+  ): Promise<Response> {
+    const { email } = body;
 
     const sendForgotPasswordEmail = container.resolve(
       SendForgotPasswordEmailService,
