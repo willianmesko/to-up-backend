@@ -1,11 +1,18 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import { JsonController, Res, Post, UseBefore, Req } from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import DuplicateTrainingService from '@modules/training/services/DuplicateTrainingService';
 
+@JsonController('/training')
+@UseBefore(ensureAuthenticated)
 export default class TrainingDuplicateController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/duplicate/:training_id')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const { title } = request.body;
       const { training_id } = request.params;

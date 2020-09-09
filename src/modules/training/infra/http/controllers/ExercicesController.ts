@@ -1,12 +1,26 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  Get,
+  Res,
+  Post,
+  UseBefore,
+  Req,
+} from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateExerciceService from '@modules/training/services/CreateExerciceService';
 import ListAllExercicesService from '@modules/training/services/ListAllExercicesService';
 
+@JsonController('/exercices')
+@UseBefore(ensureAuthenticated)
 export default class ExercicesController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const {
         name,
@@ -30,8 +44,11 @@ export default class ExercicesController {
       return response.status(400).json({ error: err.message });
     }
   }
-
-  public async index(request: Request, response: Response): Promise<Response> {
+  @Get('/')
+  async index(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const ListExercices = container.resolve(ListAllExercicesService);
 

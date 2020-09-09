@@ -1,12 +1,27 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  Res,
+  Post,
+  UseBefore,
+  Req,
+  Get,
+  Put,
+} from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateRoutineExerciceService from '@modules/training/services/CreateRoutineExerciceService';
 import EditRoutineExerciceService from '@modules/training/services/EditRoutineExerciceService';
 
+@JsonController('/routine_exercice')
+@UseBefore(ensureAuthenticated)
 export default class RoutineExerciceController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const {
         routine_id,
@@ -37,8 +52,11 @@ export default class RoutineExerciceController {
       return response.status(400).json({ error: err.message });
     }
   }
-
-  public async edit(request: Request, response: Response): Promise<Response> {
+  @Put('/')
+  async edit(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const data = request.body;
 

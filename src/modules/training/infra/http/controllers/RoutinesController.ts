@@ -1,12 +1,26 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  Res,
+  Post,
+  UseBefore,
+  Req,
+  Get,
+} from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateRoutineService from '@modules/training/services/CreateRoutineService';
 import ListAllRoutinesService from '@modules/training/services/ListAllRoutinesService';
 
+@JsonController('/routines')
+@UseBefore(ensureAuthenticated)
 export default class RoutinesController {
-  public async index(request: Request, response: Response): Promise<Response> {
+  @Get('/training_id')
+  async index(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const { training_id } = request.params;
 
@@ -15,14 +29,17 @@ export default class RoutinesController {
       const routines = await listAllRoutines.execute({
         training_id,
       });
-0
+      0;
       return response.json(classToClass(routines));
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }
   }
-
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const { title, description, training_id } = request.body;
 

@@ -1,13 +1,27 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-
+import {
+  JsonController,
+  Get,
+  Res,
+  Post,
+  UseBefore,
+  Req,
+} from 'routing-controllers';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import ShowOneTrainerTraining from '@modules/training/services/ShowOneTrainerTraining';
 import ListAllTrainerTraining from '@modules/training/services/ListAllTrainerTraining';
 import CreateTrainingService from '@modules/training/services/CreateTrainingService';
 
+@JsonController('/training')
+@UseBefore(ensureAuthenticated)
 export default class TrainingController {
-  public async create(request: Request, response: Response): Promise<Response> {
+  @Post('/')
+  async create(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const { title, description, cycle, objective } = request.body;
 
@@ -27,7 +41,11 @@ export default class TrainingController {
     }
   }
 
-  public async show(request: Request, response: Response): Promise<Response> {
+  @Get('/:training_id')
+  async show(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const { training_id } = request.params;
 
@@ -43,8 +61,11 @@ export default class TrainingController {
       return response.status(400).json({ error: err.message });
     }
   }
-
-  public async index(request: Request, response: Response): Promise<Response> {
+  @Get('/')
+  async index(
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<Response> {
     try {
       const listTrainerTraining = container.resolve(ListAllTrainerTraining);
 
