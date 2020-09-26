@@ -8,16 +8,23 @@ import {
   Post,
   UseBefore,
   Req,
+  Body,
 } from 'routing-controllers';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateExerciceService from '@modules/training/services/CreateExerciceService';
 import ListAllExercicesService from '@modules/training/services/ListAllExercicesService';
-
+interface IRequest {
+  name: string;
+  muscle_group_name: string;
+  muscle_group_id: number;
+  youtube_video_id: string;
+}
 @JsonController('/exercices')
 @UseBefore(ensureAuthenticated)
 export default class ExercicesController {
   @Post('/')
   async create(
+    @Body() body: IRequest,
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response> {
@@ -27,7 +34,7 @@ export default class ExercicesController {
         muscle_group_id,
         muscle_group_name,
         youtube_video_id,
-      } = request.body;
+      } = body;
 
       const CreateExercice = container.resolve(CreateExerciceService);
 

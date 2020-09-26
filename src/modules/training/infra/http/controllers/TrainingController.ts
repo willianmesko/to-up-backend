@@ -7,6 +7,7 @@ import {
   Res,
   Post,
   UseBefore,
+  Body,
   Req,
 } from 'routing-controllers';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
@@ -14,16 +15,23 @@ import ShowOneTrainerTraining from '@modules/training/services/ShowOneTrainerTra
 import ListAllTrainerTraining from '@modules/training/services/ListAllTrainerTraining';
 import CreateTrainingService from '@modules/training/services/CreateTrainingService';
 
+interface IRequest {
+  title: string;
+  description: string;
+  cycle: number;
+  objective: number;
+}
 @JsonController('/training')
 @UseBefore(ensureAuthenticated)
 export default class TrainingController {
   @Post('/')
   async create(
     @Req() request: Request,
+    @Body() body: IRequest,
     @Res() response: Response,
   ): Promise<Response> {
     try {
-      const { title, description, cycle, objective } = request.body;
+      const { title, description, cycle, objective } = body;
 
       const createTraining = container.resolve(CreateTrainingService);
 

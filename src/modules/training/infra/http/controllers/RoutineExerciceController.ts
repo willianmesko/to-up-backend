@@ -9,16 +9,27 @@ import {
   Req,
   Get,
   Put,
+  Body,
 } from 'routing-controllers';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateRoutineExerciceService from '@modules/training/services/CreateRoutineExerciceService';
 import EditRoutineExerciceService from '@modules/training/services/EditRoutineExerciceService';
 
+interface IRequest {
+  routine_id: string;
+  exercice_id: string;
+  routine: string;
+  exercice: string;
+  volume: number;
+  sequence: number;
+  repetitions: number;
+}
 @JsonController('/routine_exercice')
 @UseBefore(ensureAuthenticated)
 export default class RoutineExerciceController {
   @Post('/')
   async create(
+    @Body() body: IRequest,
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response> {
@@ -31,7 +42,7 @@ export default class RoutineExerciceController {
         volume,
         sequence,
         repetitions,
-      } = request.body;
+      } = body;
 
       const createRoutineExercice = container.resolve(
         CreateRoutineExerciceService,

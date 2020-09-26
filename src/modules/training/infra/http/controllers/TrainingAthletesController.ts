@@ -1,20 +1,32 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-import { JsonController, Res, Post, UseBefore, Req } from 'routing-controllers';
+import {
+  JsonController,
+  Res,
+  Post,
+  UseBefore,
+  Req,
+  Body,
+} from 'routing-controllers';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import AddAthletesToTrainingService from '@modules/training/services/AddAthletesToTrainingService';
 
+interface IRequest {
+  athletes_ids: string;
+  training_id: string;
+}
 @JsonController('/training')
 @UseBefore(ensureAuthenticated)
 export default class TrainingAthletesController {
   @Post('/athletes')
   async create(
+    @Body() body: IRequest,
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response> {
     try {
-      const { athletes_ids, training_id } = request.body;
+      const { athletes_ids, training_id } = body;
 
       const addAthletesToTraining = container.resolve(
         AddAthletesToTrainingService,
