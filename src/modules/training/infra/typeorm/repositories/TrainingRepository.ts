@@ -45,6 +45,15 @@ class TrainingRepository implements ITrainingRepository {
     return training;
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Training)
+      .where('id = :id', { id })
+      .execute();
+  }
+
   public async create(
     trainingData: ICreateTrainingDTO,
   ): Promise<Training | undefined> {

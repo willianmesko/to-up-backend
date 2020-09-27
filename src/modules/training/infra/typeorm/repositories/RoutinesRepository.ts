@@ -22,6 +22,15 @@ class RoutinesRepository implements IRoutinesRepository {
     return this.ormRepository.save(routine);
   }
 
+  public async delete(id: string): Promise<void> {
+    await this.ormRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Routine)
+      .where('id = :id', { id })
+      .execute();
+  }
+
   public async findAll(training_id: string): Promise<Routine[]> {
     const routines = await this.ormRepository.find({
       where: { training_id },

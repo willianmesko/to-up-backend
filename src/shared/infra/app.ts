@@ -10,16 +10,15 @@ class App {
   constructor(
     @inject('HttpServer')
     private httpserver,
-
-    @inject('AmqpProvider')
-    private amqpProvider: IAmqpProvider,
-  ) {
+  ) // @inject('AmqpProvider')
+  // private amqpProvider: IAmqpProvider,
+  {
     this.start();
   }
 
   async start(): Promise<void> {
     await this.httpserver.start();
-    await this.amqpProvider.start();
+    // await this.amqpProvider.start();
   }
 }
 

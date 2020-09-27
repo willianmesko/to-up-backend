@@ -11,4 +11,5 @@ export default interface ITrainingRepository {
   findByAthleteId(id: string): Promise<Athlete | undefined>;
   create(trainingData: ICreateTrainingDTO): Promise<Training | undefined>;
   save(training: Training): Promise<Training>;
+  delete(training_id: string): Promise<void>;
 }

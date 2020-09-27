@@ -5,4 +5,5 @@ export default interface IRoutinesRepository {
   findAll(training_id: string): Promise<Routine[]>;
   create(routineData: ICreateRoutineDTO): Promise<Routine>;
   save(training: Routine): Promise<Routine>;
+  delete(routine_id: string): Promise<void>;
 }
