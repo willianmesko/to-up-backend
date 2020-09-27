@@ -34,6 +34,12 @@ class User {
   sexo: number;
 
   @Column()
+  bio: string;
+
+  @Column()
+  is_public: boolean;
+
+  @Column()
   @Exclude()
   password: string;
 
@@ -45,6 +51,18 @@ class User {
 
   @Column()
   avatar: string;
+
+  @Column()
+  cover: string;
+
+  @Column()
+  skills: string;
+
+  @Column()
+  instagram: string;
+
+  @Column('float')
+  mensal_value: number;
 
   @CreateDateColumn()
   created_at: Date;
