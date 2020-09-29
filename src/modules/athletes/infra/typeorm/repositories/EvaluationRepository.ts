@@ -22,7 +22,7 @@ class Evaluations implements IEvaluationRepository {
 
   public async getByAthleteId(athlete_id: string): Promise<Evaluation[]> {
     const evaluation = await this.ormRepository.find({
-      where: athlete_id,
+      where: { athlete_id },
     });
 
     return evaluation;

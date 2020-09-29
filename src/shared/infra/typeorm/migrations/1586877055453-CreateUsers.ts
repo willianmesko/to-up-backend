@@ -19,6 +19,7 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()', // generate uuid automaticaly
           },
+
           {
             name: 'name',
             type: 'varchar',
@@ -59,7 +60,7 @@ export default class CreateUsers1586877055453 implements MigrationInterface {
           },
           {
             name: 'mensal_value',
-            type: 'number',
+            type: 'float',
             isNullable: true,
           },
 

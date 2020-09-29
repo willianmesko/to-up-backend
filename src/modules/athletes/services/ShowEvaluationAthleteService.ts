@@ -1,5 +1,5 @@
 import { inject, injectable } from 'tsyringe';
-
+import AppError from '@shared/errors/AppError';
 import IEvaluationRepository from '@modules/athletes/repositories/IEvaluationRepository';
 
 import Evaluation from '@modules/athletes/infra/typeorm/entities/Evaluation';
@@ -12,11 +12,15 @@ class ShowEvaluationAthleteService {
   ) {}
 
   public async execute(athlete_id: string): Promise<Evaluation[]> {
-    const evaluation = await this.evaluationRepository.getByAthleteId(
-      athlete_id,
-    );
+    try {
+      const evaluation = await this.evaluationRepository.getByAthleteId(
+        athlete_id,
+      );
 
-    return evaluation;
+      return evaluation;
+    } catch (error) {
+      throw new AppError('Fail');
+    }
   }
 }
 

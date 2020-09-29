@@ -36,7 +36,7 @@ class AuthenticateUserService {
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
-
+    console.log(user);
     if (!user) {
       const athlete = await this.athletesRepository.findByEmail(email);
 

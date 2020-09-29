@@ -39,6 +39,7 @@ export default class ProfileController {
 
     return response.json(classToClass(user));
   }
+
   @Put('/')
   async update(
     @Body() body: IRequest,

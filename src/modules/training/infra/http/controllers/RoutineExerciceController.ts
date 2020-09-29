@@ -7,14 +7,15 @@ import {
   Post,
   UseBefore,
   Req,
-  Get,
+  Delete,
+  Params,
   Put,
   Body,
 } from 'routing-controllers';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateRoutineExerciceService from '@modules/training/services/CreateRoutineExerciceService';
 import EditRoutineExerciceService from '@modules/training/services/EditRoutineExerciceService';
-
+import DeleteExerciceService from '@modules/training/services/DeleteExerciceService';
 interface IRequest {
   routine_id: string;
   exercice_id: string;
@@ -23,6 +24,10 @@ interface IRequest {
   volume: number;
   sequence: number;
   repetitions: number;
+}
+
+interface IDeleteParams {
+  exercice_id: string;
 }
 @JsonController('/routine_exercice')
 @UseBefore(ensureAuthenticated)
@@ -63,6 +68,7 @@ export default class RoutineExerciceController {
       return response.status(400).json({ error: err.message });
     }
   }
+
   @Put('/')
   async edit(
     @Req() request: Request,
@@ -78,6 +84,25 @@ export default class RoutineExerciceController {
       });
 
       return response.json(classToClass(routineExercice));
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
+  @Delete('/:exercice_id')
+  async index(
+    @Params() params: IDeleteParams,
+    @Res() response: Response,
+  ): Promise<Response> {
+    try {
+      const { exercice_id } = params;
+      const deleteExercice = container.resolve(DeleteExerciceService);
+
+      const exercices = await deleteExercice.execute({
+        exercice_id,
+      });
+
+      return response.json(classToClass(exercices));
     } catch (err) {
       return response.status(400).json({ error: err.message });
     }

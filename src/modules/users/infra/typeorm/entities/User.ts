@@ -5,7 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  BeforeInsert,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 
@@ -13,8 +14,7 @@ import { Exclude, Expose } from 'class-transformer';
 
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 import Training from '@modules/training/infra/typeorm/entities/Training';
-
-import { FirstLatter } from '@decorators';
+import UserAddress from './UserAddress';
 
 @Entity('users')
 class User {
@@ -42,6 +42,10 @@ class User {
   @Column()
   @Exclude()
   password: string;
+
+  @OneToOne(type => UserAddress)
+  @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
+  address: UserAddress;
 
   @OneToMany(type => Athlete, athlete => athlete.trainer)
   athletes: Athlete[];

@@ -12,6 +12,7 @@ import AppError from '@shared/errors/AppError';
 
 import SessionsController from '@modules/users/infra/http/controllers/SessionsController';
 import UsersController from '@modules/users/infra/http/controllers/UsersController';
+import UserAdressController from '@modules/users/infra/http/controllers/UserAdressController';
 import UserAvatarController from '@modules/users/infra/http/controllers/UserAvatarController';
 import AthletetesController from '@modules/athletes/infra/http/controllers/AthletesController';
 import AthleteAvatarController from '@modules/athletes/infra/http/controllers/AthleteAvatarController';
@@ -56,6 +57,7 @@ class HttpServer {
         TrainingDuplicateController,
         RoutinesController,
         RoutineExerciceController,
+        UserAdressController,
       ], // we specify controllers we want to use
     });
 

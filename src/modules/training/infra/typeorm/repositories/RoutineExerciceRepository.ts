@@ -35,6 +35,16 @@ class RoutineExerciceRepository implements IRoutineExerciceRepository {
 
     return routineExercice;
   }
+
+  public async delete(id: string): Promise<void> {
+    console.log(id);
+    await this.ormRepository
+      .createQueryBuilder()
+      .delete()
+      .from(RoutineExercice)
+      .where('exercice_id = :id', { id })
+      .execute();
+  }
 }
 
 export default RoutineExerciceRepository;

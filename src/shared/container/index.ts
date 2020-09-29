@@ -8,7 +8,10 @@ import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
 import IUsersTokensRepository from '@modules/users/repositories/IUsersTokensRepository';
-import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/UsersTokensRepository';
+import UsersTokensRepository from '@modules/users/infra/typeorm/repositories/UserTokensRepository';
+
+import IUsersAddressRepository from '@modules/users/repositories/IUsersAddressRepository';
+import UsersAddressRepository from '@modules/users/infra/typeorm/repositories/UsersAddressRepository';
 
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
 import AthletesRepository from '@modules/athletes/infra/typeorm/repositories/AthletesRepository';
@@ -42,6 +45,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IUsersTokensRepository>(
   'UsersTokensRepository',
   UsersTokensRepository,
+);
+
+container.registerSingleton<IUsersAddressRepository>(
+  'UsersAddressRepository',
+  UsersAddressRepository,
 );
 
 container.registerSingleton<IAthletesRepository>(

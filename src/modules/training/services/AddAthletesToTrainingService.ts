@@ -34,6 +34,7 @@ class AddAthletesToTrainingService {
 
     athletes_ids.map(async athlete_id => {
       const athlete = await this.athletesRepository.findById(athlete_id);
+      console.log(athlete);
 
       athlete.trainings = [training];
 

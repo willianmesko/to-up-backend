@@ -13,12 +13,14 @@ import {
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateExerciceService from '@modules/training/services/CreateExerciceService';
 import ListAllExercicesService from '@modules/training/services/ListAllExercicesService';
+
 interface IRequest {
   name: string;
   muscle_group_name: string;
   muscle_group_id: number;
   youtube_video_id: string;
 }
+
 @JsonController('/exercices')
 @UseBefore(ensureAuthenticated)
 export default class ExercicesController {
@@ -51,6 +53,7 @@ export default class ExercicesController {
       return response.status(400).json({ error: err.message });
     }
   }
+
   @Get('/')
   async index(
     @Req() request: Request,
