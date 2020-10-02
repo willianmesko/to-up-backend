@@ -21,6 +21,7 @@ interface IRequest {
   email: string;
   password: string;
   old_password: string;
+  bio?: string;
 }
 
 @JsonController('/profile')
@@ -48,7 +49,7 @@ export default class ProfileController {
   ): Promise<Response> {
     try {
       const user_id = request.user.id;
-      const { name, email, old_password, password } = body;
+      const { name, email, old_password, password, bio } = body;
 
       const updateProfile = container.resolve(UpdateProfileService);
 
@@ -56,6 +57,7 @@ export default class ProfileController {
         user_id,
         name,
         email,
+        bio,
         old_password,
         password,
       });

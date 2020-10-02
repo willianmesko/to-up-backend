@@ -10,6 +10,7 @@ interface IRequest {
   user_id: string;
   name: string;
   email: string;
+  bio?: string;
   old_password?: string;
   password?: string;
 }
@@ -27,6 +28,7 @@ class UpdateProfileService {
   public async execute({
     user_id,
     name,
+    bio,
     email,
     password,
     old_password,
@@ -45,6 +47,7 @@ class UpdateProfileService {
 
     user.name = name;
     user.email = email;
+    user.bio = bio;
 
     if (password && !old_password) {
       throw new AppError(
