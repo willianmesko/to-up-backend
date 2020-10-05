@@ -37,20 +37,22 @@ class CreateTrainingService {
       trainer_id,
     });
 
-    // CICLOS
-    // 2 A -B
-    //3 A - B C
-    //4 A B C D
-    //5 A B C D E
-    //6 A B C D E F
+    if (training) {
+      // CICLOS
+      // 2 A -B
+      // 3 A - B C
+      // 4 A B C D
+      // 5 A B C D E
+      // 6 A B C D E F
 
-    if (cycle > 1) {
-      for (var i = 1; i <= cycle; i++) {
-        this.routinesRepository.create({
-          title: 'rotina',
-          training_id: training.id,
-          description: '',
-        });
+      if (cycle > 1) {
+        for (let i = 1; i <= cycle; i++) {
+          this.routinesRepository.create({
+            title: 'rotina',
+            training_id: training.id,
+            description: '',
+          });
+        }
       }
     }
     return training;

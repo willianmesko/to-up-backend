@@ -7,6 +7,7 @@ import IAthletesRepository from '@modules/athletes/repositories/IAthletesReposit
 // import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
+import AppError from '@shared/errors/AppError';
 
 @injectable()
 class CreateAthleteService {
@@ -16,9 +17,13 @@ class CreateAthleteService {
   ) {}
 
   public async execute(id: string): Promise<Athlete[]> {
-    const athletes = await this.athletesRepository.findAll(id);
+    try {
+      const athletes = await this.athletesRepository.findAll(id);
 
-    return athletes;
+      return athletes;
+    } catch (error) {
+      throw new AppError('Erro', 400);
+    }
   }
 }
 

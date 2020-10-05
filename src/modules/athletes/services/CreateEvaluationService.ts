@@ -86,14 +86,15 @@ class CreateEvaluationService {
     //   throw new AppError('Aluno já cadastrado');
     // }
 
-    //(CAG): CAG= PerimetroDoBraçoDireito-(3,14xDobracutaneatríceps) / 10
+    // (CAG): CAG= PerimetroDoBraçoDireito-(3,14xDobracutaneatríceps) / 10
     // CTG = PerimetroCoxaDireita-(3,14xDobraCutaneaCoxa) / 10
     // CCG = PerimetroPernaDireita-(3,14xDobraCutaneaPerna) / 10
     const cag = right_arm - (3.14 * tricipital) / 10;
+
     const ctg = right_thigh - (3.14 * thigh) / 10;
     const ccg = right_leg - (3.14 * thigh) / 10;
 
-    const total_skin_folds: number =
+    const total_skin_folds: number | undefined =
       subscapular +
       tricipital +
       breastplate +
@@ -102,7 +103,7 @@ class CreateEvaluationService {
       suprailiac +
       thigh;
 
-    const body_density: number | undefined = () => {
+    const body_density: number = () => {
       //MASCULINO
       if (athlete_sexo === 0) {
         return (
@@ -145,7 +146,7 @@ class CreateEvaluationService {
       (_, index) => index + 1,
     );
 
-    //Cria tabela baseada no estudo da formula para o sexo Feminino
+    // Cria tabela baseada no estudo da formula para o sexo Feminino
     const tableClassification = tableAges.map((age, _) => {
       if (age >= 18 && age <= 25) {
         return {

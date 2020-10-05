@@ -32,13 +32,18 @@ class AddAthletesToTrainingService {
       trainer_id,
     );
 
+    if (!training) {
+      throw new AppError('Training not found', 400);
+    }
+
     athletes_ids.map(async athlete_id => {
       const athlete = await this.athletesRepository.findById(athlete_id);
-      console.log(athlete);
 
-      athlete.trainings = [training];
+      if (athlete) {
+        athlete.trainings = [training];
 
-      this.athletesRepository.create(athlete);
+        this.athletesRepository.create(athlete);
+      }
     });
   }
 }

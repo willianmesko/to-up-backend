@@ -9,7 +9,7 @@ export default interface ITrainingRepository {
     trainer_id: string,
   ): Promise<Training | undefined>;
   findByAthleteId(id: string): Promise<Athlete | undefined>;
-  create(trainingData: ICreateTrainingDTO): Promise<Training | undefined>;
+  create(trainingData: ICreateTrainingDTO): Promise<Training>;
   save(training: Training): Promise<Training>;
   delete(training_id: string): Promise<void>;
 }

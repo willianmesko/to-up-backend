@@ -28,15 +28,13 @@ class DuplicateTrainingService {
     title,
     training_id,
     trainer_id,
-  }: IRequest): Promise<Training> {
-    const clonedTraining = undefined;
-
+  }: IRequest): Promise<Training | undefined> {
     const findTraining = await this.trainingRepository.findById(
       training_id,
       trainer_id,
     );
 
-    //Procura treino a ser clonado
+    // Procura treino a ser clonado
     if (findTraining) {
       const cloneTraining = {
         title,
@@ -47,10 +45,12 @@ class DuplicateTrainingService {
         trainer_id,
       };
 
-      //cria a copia do treino
+      // cria a copia do treino
 
-      clonedTraining = await this.trainingRepository.create(cloneTraining);
-      //procura e clona todas rotinas e exercicios vinculadas ao treino
+      const clonedTraining = await this.trainingRepository.create(
+        cloneTraining,
+      );
+      // procura e clona todas rotinas e exercicios vinculadas ao treino
       if (clonedTraining.id) {
         const cloneRoutine = await this.routinesRepository.findAll(
           findTraining.id,
