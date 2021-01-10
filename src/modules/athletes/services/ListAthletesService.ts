@@ -1,6 +1,4 @@
 import { inject, injectable } from 'tsyringe';
-
-// import AppError from '@shared/errors/AppError';
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
 
 // import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';

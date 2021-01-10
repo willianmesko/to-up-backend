@@ -96,8 +96,8 @@ class HttpServer {
   }
 
   async start(): Promise<void> {
-    await this.server.listen(8000, () => {
-      console.log('🚀️ Server started on port 8000!');
+    await this.server.listen(8001, () => {
+      console.log('🚀️ Server started on port 8001!');
     });
   }
 }

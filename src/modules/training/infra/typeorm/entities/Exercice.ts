@@ -29,6 +29,12 @@ class Exercice {
   @Column()
   trainer_id: string;
 
+  @Column()
+  duration: number;
+
+  @Column()
+  calorie: number;
+
   @OneToMany(
     type => RoutineExercice,
     routineExercice => routineExercice.exercice,

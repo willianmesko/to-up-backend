@@ -1,7 +1,6 @@
 export default interface ICreateEvaluationDTO {
   type: number;
   type_title: string;
-
   date: Date;
   athlete_age: number;
   athlete_weight: number;
@@ -29,7 +28,6 @@ export default interface ICreateEvaluationDTO {
   observation?: string;
   left_forearm?: number;
   right_forearm?: number;
-
   total_skin_folds?: number;
   body_density?: number;
   fat_weight?: number;
@@ -40,7 +38,6 @@ export default interface ICreateEvaluationDTO {
   classification?: string;
   desired_fat_percentage?: number;
   ideal_body_weight?: string;
-
   athlete_id: string;
   trainer_id: string;
 }

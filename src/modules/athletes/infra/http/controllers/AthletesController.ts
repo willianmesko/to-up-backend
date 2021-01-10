@@ -25,42 +25,9 @@ export default class AthletesController {
     @Res() response: Response,
   ): Promise<Response> {
     try {
-      const {
-        name,
-        surname,
-        email,
-        password,
-        ethnicity,
-        sexo,
-        age,
-        avatar,
-        body_mass,
-        stature,
-        aerobic_profile,
-        training_level,
-        physical_activity,
-        objective,
-      } = body;
-
       const createAthlete = container.resolve(CreateAthleteService);
 
-      const athlete = await createAthlete.execute({
-        name,
-        surname,
-        password,
-        ethnicity,
-        email,
-        trainer_id: request.user.id,
-        sexo,
-        age,
-        avatar,
-        body_mass,
-        stature,
-        aerobic_profile,
-        training_level,
-        physical_activity,
-        objective,
-      });
+      const athlete = await createAthlete.execute(body);
 
       return response.json(classToClass(athlete));
     } catch (err) {
@@ -76,7 +43,7 @@ export default class AthletesController {
     try {
       const listAthletes = container.resolve(ListAthletesService);
 
-      const athletes = await listAthletes.execute({ id: request.user.id });
+      const athletes = await listAthletes.execute(request.user.id);
 
       return response.json(classToClass(athletes));
     } catch (err) {

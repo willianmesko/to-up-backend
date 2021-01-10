@@ -24,13 +24,13 @@ class TrainingRepository implements ITrainingRepository {
     return training;
   }
 
-  public async findByAthleteId(id: string): Promise<Athlete | undefined> {
-    const athlete = await this.ormRepository.find({
+  public async findByAthleteId(id: string): Promise<Training[] | undefined> {
+    const training = await this.ormRepository.find({
       where: { id },
       relations: ['trainer'],
     });
 
-    return athlete;
+    return training;
   }
 
   public async findById(

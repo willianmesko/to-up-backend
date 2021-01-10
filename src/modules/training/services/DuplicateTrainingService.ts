@@ -50,6 +50,7 @@ class DuplicateTrainingService {
       const clonedTraining = await this.trainingRepository.create(
         cloneTraining,
       );
+
       // procura e clona todas rotinas e exercicios vinculadas ao treino
       if (clonedTraining.id) {
         const cloneRoutine = await this.routinesRepository.findAll(
@@ -78,8 +79,8 @@ class DuplicateTrainingService {
           });
         }
       }
+      return clonedTraining;
     }
-    return clonedTraining;
   }
 }
 

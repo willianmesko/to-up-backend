@@ -37,7 +37,6 @@ class RoutineExerciceRepository implements IRoutineExerciceRepository {
   }
 
   public async delete(id: string): Promise<void> {
-    console.log(id);
     await this.ormRepository
       .createQueryBuilder()
       .delete()

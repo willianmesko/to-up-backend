@@ -35,6 +35,8 @@ export default class ExercicesController {
         name,
         muscle_group_id,
         muscle_group_name,
+        calorie,
+        duration,
         youtube_video_id,
       } = body;
 
@@ -44,6 +46,8 @@ export default class ExercicesController {
         name,
         muscle_group_id,
         muscle_group_name,
+        calorie,
+        duration,
         youtube_video_id,
         trainer_id: request.user.id,
       });

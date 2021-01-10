@@ -8,8 +8,8 @@ export default interface ITrainingRepository {
     training_id: string,
     trainer_id: string,
   ): Promise<Training | undefined>;
-  findByAthleteId(id: string): Promise<Athlete | undefined>;
-  create(trainingData: ICreateTrainingDTO): Promise<Training>;
+  findByAthleteId(id: string): Promise<Training[] | undefined>;
+  create(trainingData: ICreateTrainingDTO): Promise<Training | undefined>;
   save(training: Training): Promise<Training>;
   delete(training_id: string): Promise<void>;
 }

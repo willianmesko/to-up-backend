@@ -36,9 +36,12 @@ class AuthenticateUserService {
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
-    console.log(user);
+
     if (!user) {
       const athlete = await this.athletesRepository.findByEmail(email);
+      if (!athlete) {
+        throw new AppError('Incorrect email/password combination.', 401);
+      }
 
       const passwordMatched = await this.hashProvider.compareHash(
         password,
@@ -54,9 +57,6 @@ class AuthenticateUserService {
         expiresIn: authConfig.jwt.expiresIn,
       });
 
-      if (!athlete) {
-        throw new AppError('Incorrect email/password combination.', 401);
-      }
       return {
         user: athlete,
         token,

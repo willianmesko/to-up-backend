@@ -33,6 +33,16 @@ export default class CreateExerciceTable1590604969799
             type: 'varchar',
           },
           {
+            name: 'duration',
+            type: 'int',
+            isNullable: true,
+          },
+          {
+            name: 'calorie',
+            type: 'int',
+            isNullable: true,
+          },
+          {
             name: 'trainer_id',
             type: 'uuid',
             isNullable: true,

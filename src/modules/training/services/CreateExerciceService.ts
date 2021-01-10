@@ -9,6 +9,8 @@ interface IRequest {
   name: string;
   muscle_group_id: number;
   muscle_group_name: string;
+  calorie: number;
+  duration: number;
   youtube_video_id: string;
   trainer_id: string;
 }
@@ -24,6 +26,8 @@ class CreateExerciceService {
     name,
     muscle_group_id,
     muscle_group_name,
+    calorie,
+    duration,
     youtube_video_id,
     trainer_id,
   }: IRequest): Promise<Exercice> {
@@ -40,6 +44,8 @@ class CreateExerciceService {
       name,
       muscle_group_id,
       muscle_group_name,
+      calorie,
+      duration,
       youtube_video_id,
       trainer_id,
     });
