@@ -30,7 +30,7 @@ class CreateUserService {
 
     @inject('AmqpProvider')
     private amqpProvider: IAmqpProvider,
-  ) {}
+  ) { }
 
   public async execute({
     name,
@@ -46,7 +46,7 @@ class CreateUserService {
     }
 
     const hashedPassword = await this.hashProvider.generateHash(password);
-
+    console.log(hashedPassword)
     const user = await this.usersRepository.create({
       name,
       surname,

@@ -14,20 +14,23 @@ class Athletes implements IAthletesRepository {
 
   public async create(athleteData: ICreateAthleteDTO): Promise<Athlete> {
     const athlete = this.ormRepository.create(athleteData);
-
+    console.log(athlete)
     await this.ormRepository.save(athlete);
 
     return athlete;
   }
 
   public async save(athlete: Athlete): Promise<Athlete> {
-    return this.ormRepository.save(athlete);
+    return await this.ormRepository.save(athlete);
   }
 
   public async findByEmail(email: string): Promise<Athlete | undefined> {
+
     const athlete = await this.ormRepository.findOne({
       where: { email },
     });
+    console.log(athlete)
+
 
     return athlete;
   }

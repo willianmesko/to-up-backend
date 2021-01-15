@@ -27,7 +27,7 @@ export default class AthletesController {
     try {
       const createAthlete = container.resolve(CreateAthleteService);
 
-      const athlete = await createAthlete.execute(body);
+      const athlete = await createAthlete.execute({ ...body, trainer_id: request.user.id });
 
       return response.json(classToClass(athlete));
     } catch (err) {

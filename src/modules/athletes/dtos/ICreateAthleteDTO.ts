@@ -16,6 +16,5 @@ export default interface ICreateAthleteDTO {
   training_level?: number;
   physical_activity?: number;
   objective?: number;
-
   avatar?: string;
 }
