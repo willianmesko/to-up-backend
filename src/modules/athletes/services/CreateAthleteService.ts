@@ -33,9 +33,8 @@ class CreateAthleteService {
     private athletesRepository: IAthletesRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider,
-  ) // @inject('CacheProvider')
-  // private cacheProvider: ICacheProvider,
+    private hashProvider: IHashProvider, // @inject('CacheProvider')
+  ) // private cacheProvider: ICacheProvider,
   {}
 
   public async execute({
@@ -54,12 +53,13 @@ class CreateAthleteService {
     physical_activity,
     objective,
   }: IRequest): Promise<Athlete> {
-    const checkAthleteExists = await this.athletesRepository.findByEmail(email);
+    // const checkAthleteExists = await this.athletesRepository.findByEmail(email);
+    // console.log(checkAthleteExists)
+    // if (checkAthleteExists) {
+    //   throw new AppError('Email já cadastrado');
+    // }
 
-    if (checkAthleteExists) {
-      throw new AppError('Aluno já cadastrado');
-    }
-
+    console.log(trainer_id);
     // function calculeBasalMetabolicRate(): number | undefined {
     //   // 0 = MASCULINO
     //   // 1 = FEMININO
@@ -85,17 +85,19 @@ class CreateAthleteService {
       surname,
       email,
       password: hashedPassword,
-      ethnicity,
+      ethnicity: Number(ethnicity),
       trainer_id,
-      sexo,
-      age,
-      body_mass,
-      stature,
-      aerobic_profile,
-      training_level,
-      physical_activity,
-      objective,
+      sexo: Number(sexo),
+      age: Number(age),
+      body_mass: Number(body_mass),
+      stature: Number(stature),
+      aerobic_profile: Number(stature),
+      training_level: Number(stature),
+      physical_activity: Number(stature),
+      objective: Number(stature),
     });
+
+    console.log(athlete);
 
     return athlete;
   }

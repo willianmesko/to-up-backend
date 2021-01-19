@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2017",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
@@ -10,10 +10,18 @@
     "baseUrl": "./src",
     "allowJs": true,
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-      "@decorators/*": ["@decorators/*"]
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@decorators/*": [
+        "@decorators/*"
+      ]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
