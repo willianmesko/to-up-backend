@@ -19,11 +19,8 @@ class UsersAddressRepository implements IUsersAddressRepository {
     return userAddress;
   }
 
-  public async update(
-    addressData: ICreateUserAddressDTO,
-  ): Promise<UserAddress | undefined> {
-    console.log(addressData);
-    const response = await this.ormRepository
+  public async update(addressData: ICreateUserAddressDTO): Promise<void> {
+    await this.ormRepository
       .createQueryBuilder()
       .update(UserAddress)
       .set(addressData)
@@ -33,7 +30,7 @@ class UsersAddressRepository implements IUsersAddressRepository {
 
   public async create(
     addressData: ICreateUserAddressDTO,
-  ): Promise<UserAddress | undefined> {
+  ): Promise<UserAddress> {
     const userAddress = await this.ormRepository.create(addressData);
     console.log(userAddress);
 

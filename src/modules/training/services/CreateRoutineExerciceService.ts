@@ -10,11 +10,11 @@ import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExe
 interface IRequest {
   routine_id: string;
   exercice_id: string;
-  routine: Routine;
-  exercice: Exercice;
+  exercice_name: string;
   volume: number;
   repetitions: number;
   sequence: number;
+  sort: number;
 }
 
 @injectable()
@@ -27,20 +27,20 @@ class CreateRoutineExerciceService {
   public async execute({
     routine_id,
     exercice_id,
-    routine,
-    exercice,
+    exercice_name,
     volume,
     repetitions,
     sequence,
+    sort,
   }: IRequest): Promise<RoutineExercice> {
     const routineExercice = this.routineExerciceRepository.create({
       routine_id,
       exercice_id,
-      routine,
-      exercice,
+      exercice_name,
       volume,
       repetitions,
       sequence,
+      sort: 0,
     });
 
     return routineExercice;

@@ -23,7 +23,7 @@ class ListAllTrainerTraining {
       trainer_id,
     );
 
-    if (training.length === 0) {
+    if (training?.length === 0) {
       throw new AppError('Nenhum treino cadastrado');
     }
 

@@ -22,7 +22,7 @@ class UpdateUserAdress {
     city,
     state,
     country,
-  }: ICreateUserAdressDTO): Promise<UserAddress> {
+  }: ICreateUserAdressDTO): Promise<void> {
     const userAddress = await this.usersAddressRepository.find(user_id);
 
     if (userAddress) {
@@ -33,7 +33,7 @@ class UpdateUserAdress {
       return this.usersAddressRepository.update(userAddress);
     }
 
-    const user = await this.usersAddressRepository.create({
+    await this.usersAddressRepository.create({
       user_id,
       city,
       country,

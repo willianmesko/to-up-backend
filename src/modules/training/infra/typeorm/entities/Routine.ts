@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
 
 import Training from '@modules/training/infra/typeorm/entities/Training';
@@ -47,6 +48,11 @@ class Routine {
   @ManyToOne(type => Training, training => training.routines)
   @JoinColumn({ name: 'training_id', referencedColumnName: 'id' })
   training: Training;
+
+  @BeforeInsert()
+  firstLetterUpperCase() {
+    this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
+  }
 
   @CreateDateColumn()
   created_at: Date;

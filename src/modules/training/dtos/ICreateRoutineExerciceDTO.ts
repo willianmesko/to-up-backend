@@ -4,9 +4,9 @@ import Exercice from '@modules/training/infra/typeorm/entities/Exercice';
 export default interface ICreateRoutineExerciceDTO {
   routine_id: string;
   exercice_id: string;
-  routine?: Routine;
-  exercice?: Exercice;
+  exercice_name: string;
   volume: number;
   sequence: number;
   repetitions: number;
+  sort: number;
 }

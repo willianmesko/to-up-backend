@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  BeforeInsert,
 } from 'typeorm';
 
 import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExercice';
@@ -40,6 +41,11 @@ class Exercice {
     routineExercice => routineExercice.exercice,
   )
   routineExercice!: RoutineExercice[];
+
+  @BeforeInsert()
+  firstLetterUpperCase() {
+    this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+  }
 
   @CreateDateColumn()
   created_at: Date;

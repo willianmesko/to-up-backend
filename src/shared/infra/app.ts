@@ -10,9 +10,8 @@ import HttpServer from './http/server/express';
 class App {
   constructor(
     @inject('HttpServer')
-    private httpserver: HttpServer, // @inject('AmqpProvider')
-  ) // private amqpProvider: IAmqpProvider,
-  {
+    private httpserver: HttpServer, // @inject('AmqpProvider') // private amqpProvider: IAmqpProvider,
+  ) {
     this.start();
   }
 

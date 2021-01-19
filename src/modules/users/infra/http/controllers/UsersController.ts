@@ -8,6 +8,7 @@ import {
   Get,
   Post,
   UseBefore,
+  Req,
 } from 'routing-controllers';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FindAllUsersService from '@modules/users/services/FindAllUsersService';
@@ -43,11 +44,14 @@ export default class UsersController {
 
   @Get('/')
   @UseBefore(ensureAuthenticated)
-  async index(@Res() response: Response): Promise<Response> {
+  async index(
+    @Res() response: Response,
+    @Req() request: Request,
+  ): Promise<Response> {
     try {
       const findAll = container.resolve(FindAllUsersService);
 
-      const user = await findAll.execute();
+      const user = await findAll.execute(request.user.id);
 
       return response.json(classToClass(user));
     } catch (err) {

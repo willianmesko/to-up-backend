@@ -19,6 +19,8 @@ interface IRequest {
   muscle_group_name: string;
   muscle_group_id: number;
   youtube_video_id: string;
+  calorie: number;
+  duration: number;
 }
 
 @JsonController('/exercices')
@@ -30,25 +32,12 @@ export default class ExercicesController {
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response> {
+    console.log(body);
     try {
-      const {
-        name,
-        muscle_group_id,
-        muscle_group_name,
-        calorie,
-        duration,
-        youtube_video_id,
-      } = body;
-
       const CreateExercice = container.resolve(CreateExerciceService);
 
       const exercice = await CreateExercice.execute({
-        name,
-        muscle_group_id,
-        muscle_group_name,
-        calorie,
-        duration,
-        youtube_video_id,
+        ...body,
         trainer_id: request.user.id,
       });
 

@@ -9,6 +9,7 @@ import {
   JoinTable,
   ManyToMany,
   OneToMany,
+  BeforeInsert,
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
@@ -65,6 +66,11 @@ class Athlete {
     },
   })
   trainings: Training[];
+
+  @BeforeInsert()
+  firstLetterUpperCase() {
+    this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+  }
 
   @Column()
   sexo: number;

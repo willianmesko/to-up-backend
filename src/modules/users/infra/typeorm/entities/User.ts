@@ -7,6 +7,7 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
 import uploadConfig from '@config/upload';
 
@@ -88,6 +89,12 @@ class User {
       default:
         return null;
     }
+  }
+
+  @BeforeInsert()
+  firstLetterUpperCase() {
+    this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+    this.surname = this.surname.charAt(0).toUpperCase() + this.surname.slice(1);
   }
 }
 

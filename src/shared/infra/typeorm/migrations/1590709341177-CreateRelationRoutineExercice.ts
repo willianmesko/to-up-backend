@@ -23,6 +23,10 @@ export default class CreateRelationRoutineExercice1590709341177
             name: 'exercice_id',
             type: 'uuid',
           },
+          {
+            name: 'exercice_name',
+            type: 'varchar',
+          },
 
           {
             name: 'sequence',
@@ -36,6 +40,10 @@ export default class CreateRelationRoutineExercice1590709341177
 
           {
             name: 'volume',
+            type: 'int',
+          },
+          {
+            name: 'sort',
             type: 'int',
           },
 

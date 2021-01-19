@@ -9,6 +9,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  BeforeInsert,
 } from 'typeorm';
 
 import { Expose } from 'class-transformer';
@@ -76,6 +77,11 @@ class Training {
       default:
         return null;
     }
+  }
+
+  @BeforeInsert()
+  firstLetterUpperCase() {
+    this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
   }
 
   @CreateDateColumn()

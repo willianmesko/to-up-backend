@@ -23,6 +23,9 @@ class RoutineExercice {
   exercice_id: string;
 
   @Column()
+  exercice_name: string;
+
+  @Column()
   sequence: number;
 
   @Column()
@@ -33,6 +36,9 @@ class RoutineExercice {
 
   @Column()
   observation: string;
+
+  @Column()
+  sort: number;
 
   @ManyToOne(type => Routine, routine => routine.routineExercice)
   @JoinColumn({ name: 'routine_id', referencedColumnName: 'id' })

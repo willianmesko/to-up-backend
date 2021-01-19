@@ -16,14 +16,18 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 import CreateRoutineExerciceService from '@modules/training/services/CreateRoutineExerciceService';
 import EditRoutineExerciceService from '@modules/training/services/EditRoutineExerciceService';
 import DeleteExerciceService from '@modules/training/services/DeleteExerciceService';
-interface IRequest {
+interface IExerciceRequest {
   routine_id: string;
   exercice_id: string;
-  routine: string;
-  exercice: string;
+  exercice_name: string;
   volume: number;
   sequence: number;
   repetitions: number;
+  sort: number;
+}
+
+interface IEditRoutineRequest {
+  editedRoutine: IExerciceRequest[];
 }
 
 interface IDeleteParams {
@@ -34,19 +38,18 @@ interface IDeleteParams {
 export default class RoutineExerciceController {
   @Post('/')
   async create(
-    @Body() body: IRequest,
-    @Req() request: Request,
+    @Body() body: IExerciceRequest,
     @Res() response: Response,
   ): Promise<Response> {
     try {
       const {
         routine_id,
         exercice_id,
-        routine,
-        exercice,
+        exercice_name,
         volume,
         sequence,
         repetitions,
+        sort,
       } = body;
 
       const createRoutineExercice = container.resolve(
@@ -56,11 +59,11 @@ export default class RoutineExerciceController {
       const routineExercice = await createRoutineExercice.execute({
         routine_id,
         exercice_id,
-        routine,
-        exercice,
+        exercice_name,
         volume,
         sequence,
         repetitions,
+        sort,
       });
 
       return response.json(classToClass(routineExercice));
@@ -71,17 +74,16 @@ export default class RoutineExerciceController {
 
   @Put('/')
   async edit(
+    @Body() body: IEditRoutineRequest,
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<Response> {
     try {
-      const data = request.body;
+      const { editedRoutine } = body;
 
       const editRoutineExercice = container.resolve(EditRoutineExerciceService);
 
-      const routineExercice = await editRoutineExercice.execute({
-        editRoutineExercice: data,
-      });
+      const routineExercice = await editRoutineExercice.execute(editedRoutine);
 
       return response.json(classToClass(routineExercice));
     } catch (err) {

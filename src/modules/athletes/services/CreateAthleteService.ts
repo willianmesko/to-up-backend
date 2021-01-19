@@ -34,10 +34,9 @@ class CreateAthleteService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-
-    @inject('CacheProvider')
-    private cacheProvider: ICacheProvider,
-  ) {}
+  ) // @inject('CacheProvider')
+  // private cacheProvider: ICacheProvider,
+  {}
 
   public async execute({
     name,

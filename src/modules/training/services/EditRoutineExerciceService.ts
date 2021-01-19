@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import IRoutineExerciceRepository from '@modules/training/repositories/IRoutineExerciceRepository';
-
+import Exercice from '@modules/training/infra/typeorm/entities/Exercice';
 import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExercice';
 
 @injectable()
@@ -12,16 +12,18 @@ class EditRoutineExerciceService {
     private routineExerciceRepository: IRoutineExerciceRepository,
   ) {}
 
-  public async execute({ editRoutineExercice }): Promise<void> {
-    editRoutineExercice.map(async editData => {
+  public async execute(editRoutineExercice: Exercice[]): Promise<void> {
+    editRoutineExercice.map(async exercice => {
       const routineExercice = await this.routineExerciceRepository.find(
-        editData.id,
+        exercice.id,
       );
-      routineExercice.repetitions = editData.repetitions;
-      routineExercice.sequence = editData.sequence;
-      routineExercice.volume = editData.volume;
+      if (routineExercice) {
+        routineExercice.repetitions = exercice.repetitions;
+        routineExercice.sequence = exercice.sequence;
+        routineExercice.volume = exercice.volume;
 
-      await this.routineExerciceRepository.save(routineExercice);
+        await this.routineExerciceRepository.save(routineExercice);
+      }
     });
   }
 }
