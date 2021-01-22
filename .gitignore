@@ -10,3 +10,4 @@ tmp/*
 database/
 coverage/
 .env
+dist/

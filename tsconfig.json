@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "es5",
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
-    "noEmitOnError": true,
     "strict": true,
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
@@ -18,9 +17,6 @@
       ],
       "@shared/*": [
         "shared/*"
-      ],
-      "@decorators/*": [
-        "@decorators/*"
       ]
     },
     "esModuleInterop": true,
