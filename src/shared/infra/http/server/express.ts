@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-
+import '@shared/infra/typeorm';
+import '@shared/container';
 import express, { Request, Response, NextFunction, Express } from 'express';
 import { createExpressServer } from 'routing-controllers';
 import 'express-async-errors';
@@ -33,73 +34,50 @@ import RoutinesController from '@modules/training/infra/http/controllers/Routine
 import RoutineExerciceController from '@modules/training/infra/http/controllers/RoutineExerciceController';
 import rateLimiter from '../middlewares/rateLimiter';
 
-class HttpServer {
-  public server: Express;
 
-  constructor() {
-    this.server = createExpressServer({
-      cors: true,
-      controllers: [
-        SessionsController,
-        UsersController,
-        UserAvatarController,
-        ProfileController,
-        AthletetesController,
-        AthleteAvatarController,
-        AthleteWorkoutController,
-        AthleteSignUpController,
-        ExercicesController,
-        ForgotPasswordController,
-        ResetPasswordController,
-        TrainingController,
-        EvaluationController,
-        TrainingAthletesController,
-        TrainingDuplicateController,
-        RoutinesController,
-        RoutineExerciceController,
-        UserAdressController,
-      ], // we specify controllers we want to use
-    });
+const server = createExpressServer({
+  cors: true,
+  controllers: [
+    SessionsController,
+    UsersController,
+    UserAvatarController,
+    ProfileController,
+    AthletetesController,
+    AthleteAvatarController,
+    AthleteWorkoutController,
+    AthleteSignUpController,
+    ExercicesController,
+    ForgotPasswordController,
+    ResetPasswordController,
+    TrainingController,
+    EvaluationController,
+    TrainingAthletesController,
+    TrainingDuplicateController,
+    RoutinesController,
+    RoutineExerciceController,
+    UserAdressController,
+  ],
+  middlewares: [rateLimiter, errors(), express.json()],
 
-    this.middlewares();
+});
 
-    this.exceptionHandler();
-  }
-
-  middlewares(): void {
-    this.server.use(rateLimiter);
-
-    this.server.use(express.json());
-    this.server.use('/files', express.static(uploadConfig.uploadsFolder));
-
-    this.server.use(errors());
-  }
-
-  exceptionHandler(): Response | void {
-    this.server.use(
-      (err: Error, request: Request, response: Response, _: NextFunction) => {
-        if (err instanceof AppError) {
-          return response.status(err.statusCode).json({
-            status: 'error',
-            message: err.message,
-          });
-        }
-
-        console.error(err);
-
-        return response.status(500).json({
-          status: 'error',
-          message: 'Internal server error.',
-        });
-      },
-    );
-  }
-
-  async start(): Promise<void> {
-    await this.server.listen(8001, () => {
-      console.log('🚀️ Server started on port 8001!');
+server.use('/files', express.static(uploadConfig.uploadsFolder));
+server.use((err: Error, request: Request, response: Response, _: NextFunction) => {
+  if (err instanceof AppError) {
+    return response.status(err.statusCode).json({
+      status: 'error',
+      message: err.message,
     });
   }
-}
 
-export default HttpServer;
+  console.error(err);
+
+  return response.status(500).json({
+    status: 'error',
+    message: 'Internal server error.',
+  });
+});
+
+server.listen(8000, () => {
+  console.log('🚀️ Server started on port 8000!');
+});
