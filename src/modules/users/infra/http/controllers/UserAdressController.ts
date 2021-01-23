@@ -12,7 +12,6 @@ export default class UserAdressController {
 
 
   async put(
-
     request: Request,
     response: Response,
   ): Promise<Response> {
