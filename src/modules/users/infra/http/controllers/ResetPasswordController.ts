@@ -1,6 +1,5 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { container } from 'tsyringe';
-import { JsonController, Body, Res, Post, Req } from 'routing-controllers';
 import ResetPasswordService from '@modules/users/services/ResetPasswordService';
 
 interface IRequest {
@@ -8,14 +7,14 @@ interface IRequest {
   token: string;
 }
 
-@JsonController('/password')
+
 export default class ResetPasswordController {
-  @Post('/reset')
+
   async create(
-    @Body() body: IRequest,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
-    const { password, token } = body;
+    const { password, token } = request.body;
 
     const resetPasswordService = container.resolve(ResetPasswordService);
 

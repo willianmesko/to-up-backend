@@ -20,7 +20,7 @@ class CreateExerciceService {
   constructor(
     @inject('ExercicesRepository')
     private exercicesRepository: IExercicesRepository,
-  ) {}
+  ) { }
 
   public async execute({
     name,
@@ -39,7 +39,7 @@ class CreateExerciceService {
       throw new AppError('Exercicio já cadastrado');
     }
 
-    console.log(youtube_video_id);
+
     const exercice = await this.exercicesRepository.create({
       name,
       muscle_group_id,

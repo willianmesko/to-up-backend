@@ -16,7 +16,7 @@ class TrainingAthleteRepository implements ITrainingAthleteRepository {
     athlete_id: string,
   ): Promise<Training[]> {
     {
-      console.log('opa', training_id);
+
     }
   }
 }

@@ -2,19 +2,10 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
-import {
-  JsonController,
-  Body,
-  Res,
-  Get,
-  Post,
-  UseBefore,
-  Req,
-  Put,
-} from 'routing-controllers';
+
 import UpdateProfileService from '@modules/users/services/UpdateProfileService';
 import ShowProfileService from '@modules/users/services/ShowProfileService';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+
 
 interface IRequest {
   name: string;
@@ -24,13 +15,11 @@ interface IRequest {
   bio?: string;
 }
 
-@JsonController('/profile')
-@UseBefore(ensureAuthenticated)
 export default class ProfileController {
-  @Post('/')
+
   async show(
-    @Req() request: Request,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     const user_id = request.user.id;
 
@@ -41,15 +30,15 @@ export default class ProfileController {
     return response.json(classToClass(user));
   }
 
-  @Put('/')
+
   async update(
-    @Body() body: IRequest,
-    @Req() request: Request,
-    @Res() response: Response,
+
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const user_id = request.user.id;
-      const { name, email, old_password, password, bio } = body;
+      const { name, email, old_password, password, bio } = request.body;
 
       const updateProfile = container.resolve(UpdateProfileService);
 

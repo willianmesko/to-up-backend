@@ -1,30 +1,18 @@
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-import {
-  JsonController,
-  Body,
-  Res,
-  Get,
-  Post,
-  UseBefore,
-  Req,
-} from 'routing-controllers';
 import CreateUserService from '@modules/users/services/CreateUserService';
 import FindAllUsersService from '@modules/users/services/FindAllUsersService';
-
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import ICreateUserDTO from '../../../dtos/ICreateUserDTO';
 
-@JsonController('/users')
 export default class UsersController {
-  @Post('/')
+
   async create(
-    @Body() body: ICreateUserDTO,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { name, surname, sexo, email, password } = body;
+      const { name, surname, sexo, email, password } = request.body;
 
       const createUser = container.resolve(CreateUserService);
 
@@ -42,11 +30,10 @@ export default class UsersController {
     }
   }
 
-  @Get('/')
-  @UseBefore(ensureAuthenticated)
+
   async index(
-    @Res() response: Response,
-    @Req() request: Request,
+    response: Response,
+    request: Request,
   ): Promise<Response> {
     try {
       const findAll = container.resolve(FindAllUsersService);

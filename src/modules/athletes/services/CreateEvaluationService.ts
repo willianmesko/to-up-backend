@@ -44,7 +44,7 @@ class CreateEvaluationService {
   constructor(
     @inject('EvaluationRepository')
     private evaluationRepository: IEvaluationRepository,
-  ) {}
+  ) { }
 
   public async execute({
     type,
@@ -126,11 +126,6 @@ class CreateEvaluationService {
 
     const lean_body_mass = athlete_weight - fat_weight;
 
-    console.log(body_fat_percentage);
-    console.log(body_muscle_percentage);
-    console.log(fat_weight);
-    console.log(lean_body_mass);
-
     try {
       const evaluation = await this.evaluationRepository.create({
         type,
@@ -176,7 +171,7 @@ class CreateEvaluationService {
       });
 
       return evaluation;
-    } catch (error) {}
+    } catch (error) { }
   }
 
   private body_density(
@@ -215,7 +210,7 @@ class CreateEvaluationService {
   ): number {
     return (
       athlete_height *
-        (0.00744 * cag ** 2 + 0.00088 * ctg ** 2 + 0.00441 * ccg ** 2) +
+      (0.00744 * cag ** 2 + 0.00088 * ctg ** 2 + 0.00441 * ccg ** 2) +
       2.4 * athlete_sexo -
       0.048 * athlete_age +
       athlete_ethnicity +

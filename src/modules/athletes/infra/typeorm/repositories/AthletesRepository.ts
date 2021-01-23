@@ -14,7 +14,7 @@ class Athletes implements IAthletesRepository {
 
   public async create(athleteData: ICreateAthleteDTO): Promise<Athlete> {
     const athlete = this.ormRepository.create(athleteData);
-    console.log(athlete)
+
     await this.ormRepository.save(athlete);
 
     return athlete;
@@ -29,7 +29,7 @@ class Athletes implements IAthletesRepository {
     const athlete = await this.ormRepository.findOne({
       where: { email },
     });
-    console.log(athlete)
+
 
 
     return athlete;

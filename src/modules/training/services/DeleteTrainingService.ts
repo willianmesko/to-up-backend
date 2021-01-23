@@ -13,13 +13,13 @@ class DeleteTrainingService {
   constructor(
     @inject('TrainingRepository')
     private trainingRepository: ITrainingRepository,
-  ) {}
+  ) { }
 
   public async execute({ training_id }: IRequest): Promise<void> {
     try {
-      console.log(training_id);
+
       await this.trainingRepository.delete(training_id);
-    } catch (error) {}
+    } catch (error) { }
   }
 }
 

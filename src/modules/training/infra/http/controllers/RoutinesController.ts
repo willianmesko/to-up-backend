@@ -1,18 +1,6 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-import {
-  JsonController,
-  Res,
-  Post,
-  UseBefore,
-  Req,
-  Get,
-  Delete,
-  Params,
-  Body,
-} from 'routing-controllers';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateRoutineService from '@modules/training/services/CreateRoutineService';
 import ListAllRoutinesService from '@modules/training/services/ListAllRoutinesService';
 import DeleteRoutineService from '@modules/training/services/DeleteRoutineService';
@@ -26,13 +14,12 @@ interface IRequest {
 interface IDeleteParams {
   routine_id: string;
 }
-@JsonController('/routines')
-@UseBefore(ensureAuthenticated)
+
 export default class RoutinesController {
-  @Get('/:training_id')
+
   async index(
-    @Req() request: Request,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const { training_id } = request.params;
@@ -48,14 +35,14 @@ export default class RoutinesController {
       return response.status(400).json({ error: err.message });
     }
   }
-  @Post('/')
+
   async create(
-    @Body() body: IRequest,
-    @Req() request: Request,
-    @Res() response: Response,
+
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { title, description, training_id } = body;
+      const { title, description, training_id } = request.body;
 
       const createRoutine = container.resolve(CreateRoutineService);
 
@@ -70,13 +57,13 @@ export default class RoutinesController {
       return response.status(400).json({ error: err.message });
     }
   }
-  @Delete('/:routine_id')
+
   async delete(
-    @Params() params: IDeleteParams,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { routine_id } = params;
+      const { routine_id } = request.params;
 
       const deleteRoutine = container.resolve(DeleteRoutineService);
 

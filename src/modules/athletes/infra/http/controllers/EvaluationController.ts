@@ -1,27 +1,14 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-import {
-  JsonController,
-  UseBefore,
-  Get,
-  Req,
-  Res,
-  Post,
-  Body,
-} from 'routing-controllers';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import CreateEvaluationService from '@modules/athletes/services/CreateEvaluationService';
 import ShowEvaluationAthleteService from '@modules/athletes/services/ShowEvaluationAthleteService';
 import ICreateEvaluationDTO from '@modules/athletes/dtos/ICreateEvaluationDTO';
-@JsonController('/evaluation')
-@UseBefore(ensureAuthenticated)
+
 export default class EvaluationController {
-  @Post('/')
   async create(
-    @Req() request: Request,
-    @Body() body: ICreateEvaluationDTO,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const {
@@ -55,7 +42,7 @@ export default class EvaluationController {
         left_forearm,
         right_forearm,
         athlete_id,
-      } = body;
+      } = request.body;
 
       const createEvaluation = container.resolve(CreateEvaluationService);
 
@@ -99,10 +86,10 @@ export default class EvaluationController {
     }
   }
 
-  @Get('/:athlete_id')
+
   async list(
-    @Req() request: Request,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const showEvaluation = container.resolve(ShowEvaluationAthleteService);

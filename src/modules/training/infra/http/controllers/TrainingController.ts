@@ -1,17 +1,7 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
-import {
-  JsonController,
-  Get,
-  Res,
-  Post,
-  UseBefore,
-  Body,
-  Req,
-  Params,
-  Delete,
-} from 'routing-controllers';
+
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import ShowOneTrainerTraining from '@modules/training/services/ShowOneTrainerTraining';
 import ListAllTrainerTraining from '@modules/training/services/ListAllTrainerTraining';
@@ -26,17 +16,16 @@ interface IRequest {
 interface IDeleteParams {
   training_id: string;
 }
-@JsonController('/training')
-@UseBefore(ensureAuthenticated)
+
 export default class TrainingController {
-  @Post('/')
+
   async create(
-    @Req() request: Request,
-    @Body() body: IRequest,
-    @Res() response: Response,
+    request: Request,
+
+    response: Response,
   ): Promise<Response> {
     try {
-      const { title, description, cycle, objective } = body;
+      const { title, description, cycle, objective } = request.body;
 
       const createTraining = container.resolve(CreateTrainingService);
 
@@ -54,10 +43,9 @@ export default class TrainingController {
     }
   }
 
-  @Get('/:training_id')
   async show(
-    @Req() request: Request,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const { training_id } = request.params;
@@ -74,10 +62,10 @@ export default class TrainingController {
       return response.status(400).json({ error: err.message });
     }
   }
-  @Get('/')
+
   async index(
-    @Req() request: Request,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const listTrainerTraining = container.resolve(ListAllTrainerTraining);
@@ -91,13 +79,13 @@ export default class TrainingController {
       return response.status(400).json({ error: err.message });
     }
   }
-  @Delete('/:training_id')
+
   async delete(
-    @Params() params: IDeleteParams,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { training_id } = params;
+      const { training_id } = request.params;
       const deleteTraining = container.resolve(DeleteTrainingService);
 
       const training = await deleteTraining.execute({

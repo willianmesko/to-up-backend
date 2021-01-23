@@ -35,7 +35,7 @@ class CreateAthleteService {
     @inject('HashProvider')
     private hashProvider: IHashProvider, // @inject('CacheProvider')
   ) // private cacheProvider: ICacheProvider,
-  {}
+  { }
 
   public async execute({
     name,
@@ -59,7 +59,7 @@ class CreateAthleteService {
     //   throw new AppError('Email já cadastrado');
     // }
 
-    console.log(trainer_id);
+
     // function calculeBasalMetabolicRate(): number | undefined {
     //   // 0 = MASCULINO
     //   // 1 = FEMININO
@@ -97,7 +97,6 @@ class CreateAthleteService {
       objective: Number(stature),
     });
 
-    console.log(athlete);
 
     return athlete;
   }

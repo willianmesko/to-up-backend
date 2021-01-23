@@ -32,7 +32,7 @@ class UsersAddressRepository implements IUsersAddressRepository {
     addressData: ICreateUserAddressDTO,
   ): Promise<UserAddress> {
     const userAddress = await this.ormRepository.create(addressData);
-    console.log(userAddress);
+
 
     return this.ormRepository.save(userAddress);
   }

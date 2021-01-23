@@ -33,13 +33,12 @@ interface IEditRoutineRequest {
 interface IDeleteParams {
   exercice_id: string;
 }
-@JsonController('/routine_exercice')
-@UseBefore(ensureAuthenticated)
+
 export default class RoutineExerciceController {
-  @Post('/')
+
   async create(
-    @Body() body: IExerciceRequest,
-    @Res() response: Response,
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
       const {
@@ -50,7 +49,7 @@ export default class RoutineExerciceController {
         sequence,
         repetitions,
         sort,
-      } = body;
+      } = request.body;
 
       const createRoutineExercice = container.resolve(
         CreateRoutineExerciceService,
@@ -72,14 +71,14 @@ export default class RoutineExerciceController {
     }
   }
 
-  @Put('/')
+
   async edit(
-    @Body() body: IEditRoutineRequest,
-    @Req() request: Request,
-    @Res() response: Response,
+
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { editedRoutine } = body;
+      const { editedRoutine } = request.body;
 
       const editRoutineExercice = container.resolve(EditRoutineExerciceService);
 
@@ -91,13 +90,12 @@ export default class RoutineExerciceController {
     }
   }
 
-  @Delete('/:exercice_id')
-  async index(
-    @Params() params: IDeleteParams,
-    @Res() response: Response,
+  async delete(
+    request: Request,
+    response: Response,
   ): Promise<Response> {
     try {
-      const { exercice_id } = params;
+      const { exercice_id } = request.params;
       const deleteExercice = container.resolve(DeleteExerciceService);
 
       const exercices = await deleteExercice.execute({

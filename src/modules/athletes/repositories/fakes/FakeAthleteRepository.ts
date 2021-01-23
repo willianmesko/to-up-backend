@@ -14,7 +14,7 @@ class FakeAthleteRepository implements IAthletesRepository {
     Object.assign(athlete, { id: uuid() }, athleteData);
 
     this.athletes.push(athlete);
-    console.log(athlete);
+
     return athlete;
   }
 
