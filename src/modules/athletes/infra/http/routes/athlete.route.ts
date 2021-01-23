@@ -8,9 +8,8 @@ import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAut
 const atheleteRouter = Router();
 const athletesController = new AthletesController();
 
-atheleteRouter.use(ensureAuthenticated);
 
-atheleteRouter.get('/', athletesController.list);
+atheleteRouter.get('/', ensureAuthenticated, athletesController.list);
 atheleteRouter.post('/', athletesController.create);
 
 export default atheleteRouter;

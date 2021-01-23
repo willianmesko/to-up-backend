@@ -4,8 +4,7 @@ import { classToClass } from 'class-transformer';
 
 import CreateAthleteService from '@modules/athletes/services/CreateAthleteService';
 import ListAthletesService from '@modules/athletes/services/ListAthletesService';
-import ICreateAthleteDTO from '@modules/athletes/dtos/ICreateAthleteDTO';
-import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+
 
 
 export default class AthletesController {
@@ -15,6 +14,7 @@ export default class AthletesController {
     response: Response,
   ): Promise<Response> {
     try {
+
       const createAthlete = container.resolve(CreateAthleteService);
 
       const athlete = await createAthlete.execute({
