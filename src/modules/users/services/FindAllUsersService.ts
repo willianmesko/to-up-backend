@@ -15,12 +15,17 @@ class FindAllUsersService {
 
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
-  ) {}
+  ) { }
 
   public async execute(except_user_id: string): Promise<User[] | undefined> {
-    const user = await this.usersRepository.findAll(except_user_id);
 
-    return user;
+    let users = await this.cacheProvider.recover<User[] | undefined>('users-list');
+    if (!users) {
+      users = await this.usersRepository.findAll(except_user_id);
+
+      await this.cacheProvider.save('users-list', users);
+    }
+    return users
   }
 }
 

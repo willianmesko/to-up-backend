@@ -15,7 +15,7 @@ class TrainingRepository implements ITrainingRepository {
 
   public async findAllByTrainerId(
     trainer_id: string,
-  ): Promise<Training[] | undefined> {
+  ): Promise<Training[]> {
     const training = await this.ormRepository.find({
       where: { trainer_id },
       relations: ['routines'],
@@ -56,7 +56,7 @@ class TrainingRepository implements ITrainingRepository {
 
   public async create(
     trainingData: ICreateTrainingDTO,
-  ): Promise<Training | undefined> {
+  ): Promise<Training> {
     const training = this.ormRepository.create(trainingData);
 
     await this.ormRepository.save(training);

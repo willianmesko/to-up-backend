@@ -28,8 +28,6 @@ class CreateUserService {
     @inject('CacheProvider')
     private cacheProvider: ICacheProvider,
 
-    @inject('AmqpProvider')
-    private amqpProvider: IAmqpProvider,
   ) { }
 
   public async execute({
@@ -55,12 +53,9 @@ class CreateUserService {
       password: hashedPassword,
     });
 
-    // await this.amqpProvider.publishInQueue(
-    //   'payly.conciliation-settlement.transaction.create',
-    //   JSON.stringify(user),
-    // );
 
-    await this.cacheProvider.invalidatePrefix('providers-list');
+
+    await this.cacheProvider.invalidatePrefix('users-list');
 
     return user;
   }

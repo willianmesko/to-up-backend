@@ -12,25 +12,26 @@ class ListAthletesService {
   constructor(
     @inject('AthletesRepository')
     private athletesRepository: IAthletesRepository,
-  ) // @inject('ICacheProvider')
-  // private cacheProvider: ICacheProvider,
-  {}
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+  ) { }
 
   public async execute(id: string): Promise<Athlete[]> {
     try {
-      // const atheletesCached = await this.cacheProvider.recover(
-      //   'athletes-cached',
-      // );
+      let athletes = await this.cacheProvider.recover<Athlete[]>(
+        'athletes-list',
+      );
 
-      // if (!atheletesCached) {
-      const athletes = await this.athletesRepository.findAll(id);
+      if (!athletes) {
+        athletes = await this.athletesRepository.findAll(id);
 
-      // await this.cacheProvider.save('athletes-cached', athletes);
+        await this.cacheProvider.save('athletes-list', athletes);
+
+      }
 
       return athletes;
-      // }
 
-      // return atheletesCached;
     } catch (error) {
       throw new AppError('Erro', 400);
     }
