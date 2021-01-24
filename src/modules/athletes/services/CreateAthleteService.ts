@@ -33,9 +33,12 @@ class CreateAthleteService {
     private athletesRepository: IAthletesRepository,
 
     @inject('HashProvider')
-    private hashProvider: IHashProvider, // @inject('CacheProvider')
-  ) // private cacheProvider: ICacheProvider,
-  { }
+    private hashProvider: IHashProvider,
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+
+  ) { }
 
   public async execute({
     name,
@@ -97,7 +100,7 @@ class CreateAthleteService {
       objective: Number(stature),
     });
 
-
+    await this.cacheProvider.invalidate('athletes-list');
     return athlete;
   }
 }

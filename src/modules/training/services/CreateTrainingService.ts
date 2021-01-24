@@ -3,6 +3,7 @@ import { inject, injectable } from 'tsyringe';
 import ITrainingRepository from '@modules/training/repositories/ITrainingRepository';
 import IRoutinesRepository from '@modules/training/repositories/IRoutinesRepository';
 import Training from '@modules/training/infra/typeorm/entities/Training';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 interface IRequest {
   title: string;
@@ -20,7 +21,10 @@ class CreateTrainingService {
 
     @inject('RoutinesRepository')
     private routinesRepository: IRoutinesRepository,
-  ) {}
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider,
+  ) { }
 
   public async execute({
     title,
@@ -55,6 +59,8 @@ class CreateTrainingService {
         }
       }
     }
+
+    await this.cacheProvider.invalidate('workout-list')
     return training;
   }
 }
