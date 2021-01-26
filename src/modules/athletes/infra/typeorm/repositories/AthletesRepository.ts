@@ -44,13 +44,23 @@ class Athletes implements IAthletesRepository {
     return athlete;
   }
 
-  public async findAll(id: string): Promise<Athlete[]> {
+  public async findByTrainderId(trainer_id: string): Promise<Athlete[]> {
     return this.ormRepository.find({
       where: {
-        trainer_id: id,
+        trainer_id,
       },
       relations: ['trainings'],
     });
+  }
+
+  public async findAll(trainer_id: string): Promise<Athlete[]> {
+    const atheletes = await this.ormRepository
+      .createQueryBuilder()
+      .where({ trainer_id: null })
+      .getMany();
+
+    return atheletes;
+
   }
 }
 

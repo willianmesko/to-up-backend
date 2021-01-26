@@ -63,41 +63,26 @@ class CreateAthleteService {
     // }
 
 
-    // function calculeBasalMetabolicRate(): number | undefined {
-    //   // 0 = MASCULINO
-    //   // 1 = FEMININO
-    //   let result;
-    //   if (sexo === 0) {
-    //     result = 9.99 * body_mass + 6.25 * stature - 4.92 * age + 5;
-    //   }
-    //   if (sexo === 1) {
-    //     result = 9.99 * body_mass + 6.25 * stature - 4.92 * age - 161;
-    //   }
-    //   return result;
-    // }
-
-    // function calculeImc(): number | undefined {
-    //   return body_mass / (((stature / 100) * stature) / 100);
-    // }
 
     const signUpAthlete = !password ? '12345' : password;
     const hashedPassword = await this.hashProvider.generateHash(signUpAthlete);
+
 
     const athlete = await this.athletesRepository.create({
       name,
       surname,
       email,
       password: hashedPassword,
-      ethnicity: Number(ethnicity),
+      ethnicity: ethnicity,
       trainer_id,
-      sexo: Number(sexo),
-      age: Number(age),
-      body_mass: Number(body_mass),
-      stature: Number(stature),
-      aerobic_profile: Number(stature),
-      training_level: Number(stature),
-      physical_activity: Number(stature),
-      objective: Number(stature),
+      sexo: sexo,
+      age: age,
+      body_mass: body_mass,
+      stature: stature,
+      aerobic_profile: aerobic_profile,
+      training_level: training_level,
+      physical_activity: physical_activity,
+      objective: objective,
     });
 
     await this.cacheProvider.invalidate('athletes-list');

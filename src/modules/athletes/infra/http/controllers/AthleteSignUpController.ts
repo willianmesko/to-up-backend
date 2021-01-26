@@ -14,11 +14,6 @@ export default class AthleteSignUpController {
     try {
       const createAthlete = container.resolve(CreateAthleteService);
       const { name, surname, email, password, sexo } = request.body;
-
-
-
-
-
       const athlete = await createAthlete.execute({
         name,
         surname,

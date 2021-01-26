@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import multer, { StorageEngine } from 'multer';
 import path from 'path';
 
-const tempFolder = path.resolve(__dirname, '..', '..', 'temp');
+const tempFolder = path.resolve(__dirname, '..', '..', 'tmp');
 
 interface IUploadConfig {
   driver: 's3' | 'disk';
@@ -35,7 +35,7 @@ export default {
   config: {
     disk: {},
     aws: {
-      bucket: 'app-gobarber-2',
+      bucket: 'app-toUp-2',
     },
   },
 } as IUploadConfig;

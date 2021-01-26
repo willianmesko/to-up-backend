@@ -10,7 +10,8 @@ const athletesController = new AthletesController();
 
 
 atheleteRouter.use(ensureAuthenticated);
-atheleteRouter.get('/', athletesController.list);
+atheleteRouter.get('/', athletesController.get);
+atheleteRouter.get('/all', athletesController.list);
 atheleteRouter.post('/', athletesController.create);
 
 export default atheleteRouter;

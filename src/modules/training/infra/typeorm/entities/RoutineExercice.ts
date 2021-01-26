@@ -7,7 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-
+import { Exclude } from 'class-transformer';
 import Routine from '@modules/training/infra/typeorm/entities/Routine';
 import Exercice from '@modules/training/infra/typeorm/entities/Exercice';
 
@@ -48,9 +48,11 @@ class RoutineExercice {
   @JoinColumn({ name: 'exercice_id', referencedColumnName: 'id' })
   exercice?: Exercice;
 
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
 
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }
