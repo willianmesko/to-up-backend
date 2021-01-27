@@ -42,14 +42,16 @@ export default class RoutinesController {
     response: Response,
   ): Promise<Response> {
     try {
-      const { title, description, training_id } = request.body;
+      const { title, description, training_id, athlete_id } = request.body;
 
       const createRoutine = container.resolve(CreateRoutineService);
 
       const routine = await createRoutine.execute({
+        trainer_id: request.user.id,
         title,
         description,
         training_id,
+        athlete_id
       });
 
       return response.json(classToClass(routine));
