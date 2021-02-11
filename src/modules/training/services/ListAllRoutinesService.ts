@@ -14,13 +14,14 @@ class ListAllRoutinesService {
   constructor(
     @inject('RoutinesRepository')
     private routinesRepository: IRoutinesRepository,
-  ) {}
+  ) { }
 
   public async execute({
     training_id,
   }: IRequest): Promise<Routine[] | undefined> {
     const routines = await this.routinesRepository.findAll(training_id);
 
+    console.log(training_id)
     return routines;
   }
 }

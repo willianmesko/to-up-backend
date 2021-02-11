@@ -5,8 +5,8 @@ export default interface ICreateRoutineExerciceDTO {
   routine_id: string;
   exercice_id: string;
   exercice_name: string;
-  volume: number;
-  sequence: number;
-  repetitions: number;
-  sort: number;
+  volume?: number;
+  sequence?: number;
+  repetitions?: number;
+  sort?: number;
 }

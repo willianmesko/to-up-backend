@@ -43,12 +43,7 @@ export default class RoutineExerciceController {
     try {
       const {
         routine_id,
-        exercice_id,
-        exercice_name,
-        volume,
-        sequence,
-        repetitions,
-        sort,
+        selectedExercices
       } = request.body;
 
       const createRoutineExercice = container.resolve(
@@ -57,12 +52,7 @@ export default class RoutineExerciceController {
 
       const routineExercice = await createRoutineExercice.execute({
         routine_id,
-        exercice_id,
-        exercice_name,
-        volume,
-        sequence,
-        repetitions,
-        sort,
+        selectedExercices
       });
 
       return response.json(classToClass(routineExercice));

@@ -7,6 +7,7 @@ import AppError from '@shared/errors/AppError';
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IAthletesRepository from '@modules/athletes/repositories/IAthletesRepository';
 import IHashProvider from '@modules/users/providers/HashProvider/models/IHashProvider';
+import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 
 import User from '@modules/users/infra/typeorm/entities/User';
 import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
@@ -32,11 +33,15 @@ class AuthenticateUserService {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
-  ) {}
+
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider
+  ) { }
 
   public async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
-
+    await this.cacheProvider.invalidate('users-list');
+    await this.cacheProvider.invalidate('athletes-list');
     if (!user) {
       const athlete = await this.athletesRepository.findByEmail(email);
       if (!athlete) {

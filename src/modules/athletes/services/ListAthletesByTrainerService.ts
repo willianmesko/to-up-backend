@@ -8,7 +8,7 @@ import Athlete from '@modules/athletes/infra/typeorm/entities/Athlete';
 import AppError from '@shared/errors/AppError';
 
 @injectable()
-class ListAthletesService {
+class ListAthletesByTrainerService {
   constructor(
     @inject('AthletesRepository')
     private athletesRepository: IAthletesRepository,
@@ -23,8 +23,9 @@ class ListAthletesService {
         'athletes-list',
       );
 
+
       if (!athletes) {
-        athletes = await this.athletesRepository.findAll(id);
+        athletes = await this.athletesRepository.findByTrainderId(id);
 
         await this.cacheProvider.save('athletes-list', athletes);
 
@@ -38,4 +39,4 @@ class ListAthletesService {
   }
 }
 
-export default ListAthletesService;
+export default ListAthletesByTrainerService;

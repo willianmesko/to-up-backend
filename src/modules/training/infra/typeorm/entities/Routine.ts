@@ -10,6 +10,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
+import { Exclude } from 'class-transformer';
 import Training from '@modules/training/infra/typeorm/entities/Training';
 import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExercice';
 
@@ -53,10 +54,10 @@ class Routine {
   firstLetterUpperCase() {
     this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
   }
-
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
-
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }

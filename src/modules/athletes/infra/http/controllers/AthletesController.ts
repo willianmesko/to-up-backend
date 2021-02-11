@@ -3,7 +3,8 @@ import { container } from 'tsyringe';
 import { classToClass } from 'class-transformer';
 
 import CreateAthleteService from '@modules/athletes/services/CreateAthleteService';
-import ListAthletesService from '@modules/athletes/services/ListAthletesService';
+import ListAthletesByTrainerService from '@modules/athletes/services/ListAthletesByTrainerService';
+import ListAllAthletesService from '@modules/athletes/services/ListAllAtheletesService';
 
 
 
@@ -34,7 +35,23 @@ export default class AthletesController {
     response: Response,
   ): Promise<Response> {
     try {
-      const listAthletes = container.resolve(ListAthletesService);
+      const listAllAthletes = container.resolve(ListAllAthletesService);
+
+      const athletes = await listAllAthletes.execute(request.user.id);
+
+      return response.json(classToClass(athletes));
+    } catch (err) {
+      return response.status(400).json({ error: err.message });
+    }
+  }
+
+
+  async get(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    try {
+      const listAthletes = container.resolve(ListAthletesByTrainerService);
 
       const athletes = await listAthletes.execute(request.user.id);
 

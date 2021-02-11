@@ -7,14 +7,19 @@ import Routine from '@modules/training/infra/typeorm/entities/Routine';
 import Exercice from '@modules/training/infra/typeorm/entities/Exercice';
 import RoutineExercice from '@modules/training/infra/typeorm/entities/RoutineExercice';
 
-interface IRequest {
-  routine_id: string;
+
+
+interface ISelectedExercices {
   exercice_id: string;
   exercice_name: string;
-  volume: number;
-  repetitions: number;
-  sequence: number;
-  sort: number;
+  volume?: number;
+  repetitions?: number;
+  sequence?: number;
+  sort?: number;
+}
+interface IRequest {
+  routine_id: string;
+  selectedExercices: ISelectedExercices[]
 }
 
 @injectable()
@@ -22,28 +27,23 @@ class CreateRoutineExerciceService {
   constructor(
     @inject('RoutineExerciceRepository')
     private routineExerciceRepository: IRoutineExerciceRepository,
-  ) {}
+  ) { }
 
-  public async execute({
-    routine_id,
-    exercice_id,
-    exercice_name,
-    volume,
-    repetitions,
-    sequence,
-    sort,
-  }: IRequest): Promise<RoutineExercice> {
-    const routineExercice = this.routineExerciceRepository.create({
-      routine_id,
-      exercice_id,
-      exercice_name,
-      volume,
-      repetitions,
-      sequence,
-      sort: 0,
-    });
+  public async execute({ routine_id, selectedExercices, }: IRequest): Promise<void> {
 
-    return routineExercice;
+    selectedExercices.map(async (exercice) => {
+      await this.routineExerciceRepository.create({
+        routine_id,
+        exercice_id: exercice.exercice_id,
+        exercice_name: exercice.exercice_name,
+        volume: exercice.volume,
+        repetitions: exercice.repetitions,
+        sequence: exercice.sequence
+      })
+    })
+
+
+
   }
 }
 

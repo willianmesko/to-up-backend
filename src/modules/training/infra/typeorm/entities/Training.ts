@@ -12,7 +12,7 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-import { Expose } from 'class-transformer';
+import { Expose, Exclude } from 'class-transformer';
 import uploadConfig from '@config/upload';
 
 import User from '@modules/users/infra/typeorm/entities/User';
@@ -83,10 +83,10 @@ class Training {
   firstLetterUpperCase() {
     this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
   }
-
+  @Exclude()
   @CreateDateColumn()
   created_at: Date;
-
+  @Exclude()
   @UpdateDateColumn()
   updated_at: Date;
 }

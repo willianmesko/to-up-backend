@@ -35,6 +35,7 @@ import EvaluationRepository from '@modules/athletes/infra/typeorm/repositories/E
 
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 import NotificationsRepository from '@modules/notifications/infra/typeorm/repositories/NotificationsRepository';
+import AddAthletesToTrainingService from '@modules/training/services/AddAthletesToTrainingService';
 
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
@@ -89,4 +90,12 @@ container.registerSingleton<IEvaluationRepository>(
 container.registerSingleton<INotificationsRepository>(
   'NotificationsRepository',
   NotificationsRepository,
+);
+
+
+
+//SERVICES 
+container.registerSingleton(
+  'AddAthletesToTrainingService',
+  AddAthletesToTrainingService,
 );
